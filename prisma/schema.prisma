@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime @default(now())
+  ads          Ad[]
+}
+
+model Ad {
+  id            String    @id @default(cuid())
+  imageUrl      String
+  quote         String
+  link          String
+  targetChatbot String    @default("all")
+  isActive      Boolean   @default(true)
+  priority      Int       @default(1)
+  startDate     DateTime?
+  endDate       DateTime?
+  totalViews    Int       @default(0)
+  totalClicks   Int       @default(0)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  userId        String?
+  user          User?     @relation(fields: [userId], references: [id])
+  events        AdEvent[]
+}
+
+model AdEvent {
+  id        String   @id @default(cuid())
+  adId      String
+  action    String   // 'view' or 'click'
+  createdAt DateTime @default(now())
+  ad        Ad       @relation(fields: [adId], references: [id], onDelete: Cascade)
+}

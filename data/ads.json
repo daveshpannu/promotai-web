@@ -1,0 +1,26 @@
+[
+  {
+    "imageUrl": "https://visualstudiomagazine.com/-/media/ECG/visualstudiomagazine/Images/introimages/BigData.jpg",
+    "quote": "data seller",
+    "link": "https://india.birha.in/",
+    "targetChatbot": "all",
+    "id": "kph2ows",
+    "createdAt": 1781808498138
+  },
+  {
+    "imageUrl": "https://visualstudiomagazine.com/-/media/ECG/visualstudiomagazine/Images/introimages/BigData.jpg",
+    "quote": "data seller",
+    "link": "https://india.birha.in/",
+    "targetChatbot": "chatgpt",
+    "id": "dj92sfy",
+    "createdAt": 1781808804058
+  },
+  {
+    "imageUrl": "https://visualstudiomagazine.com/-/media/ECG/visualstudiomagazine/Images/introimages/BigData.jpg",
+    "quote": "data seller",
+    "link": "https://india.birha.in/",
+    "targetChatbot": "claude",
+    "id": "5qk1rxo",
+    "createdAt": 1781808818923
+  }
+]
