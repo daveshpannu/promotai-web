@@ -65,7 +65,7 @@ export default async function AdminDashboard() {
       <div className="relative z-10 max-w-7xl mx-auto space-y-8 mt-12">
         <div className="flex justify-between items-center bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-3xl shadow-sm">
           <div>
-            <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Admin Dashboard</h1>
+            <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">PromotAI Admin</h1>
             <p className="text-slate-500 font-medium mt-1">Superuser access only. Monitoring all platform activity.</p>
           </div>
           <div className="flex gap-4">
@@ -90,8 +90,8 @@ export default async function AdminDashboard() {
             <div className="text-4xl font-extrabold text-emerald-700">{globalStats.totalViews.toLocaleString()}</div>
           </div>
           <div className="bg-white/50 backdrop-blur-xl border border-white/80 p-6 rounded-3xl shadow-sm">
-            <div className="text-blue-600 font-bold text-sm uppercase tracking-wider mb-2">Total Clicks</div>
-            <div className="text-4xl font-extrabold text-blue-700">{globalStats.totalClicks.toLocaleString()}</div>
+            <div className="text-teal-600 font-bold text-sm uppercase tracking-wider mb-2">Total Clicks</div>
+            <div className="text-4xl font-extrabold text-teal-700">{globalStats.totalClicks.toLocaleString()}</div>
           </div>
         </div>
 
@@ -155,7 +155,7 @@ export default async function AdminDashboard() {
                                         {ad.isActive ? 'ACTIVE' : 'PAUSED'}
                                       </span>
                                     </div>
-                                    <div className="text-xs font-mono text-blue-600 truncate mb-3 bg-white/60 p-1.5 rounded border border-white/50">
+                                    <div className="text-xs font-mono text-teal-600 truncate mb-3 bg-white/60 p-1.5 rounded border border-white/50">
                                       {ad.link}
                                     </div>
                                   </div>

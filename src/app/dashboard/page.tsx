@@ -222,8 +222,8 @@ export default function AdvertiserPortal() {
         {/* Header */}
         <header className="flex justify-between items-center mb-10">
           <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
-              AI Chatbot Ads
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">
+              PromotAI
             </h1>
             <p className={`${subtext} mt-1`}>
               Welcome, {session?.user?.name || session?.user?.email}
@@ -269,7 +269,7 @@ export default function AdvertiserPortal() {
                 {/* Image Upload */}
                 <div>
                   <label className={`block text-sm font-medium ${subtext} mb-1`}>Image</label>
-                  <div className={`border-2 border-dashed ${inputBorder} rounded-lg p-4 text-center transition-colors hover:border-blue-500`}>
+                  <div className={`border-2 border-dashed ${inputBorder} rounded-lg p-4 text-center transition-colors hover:border-emerald-500`}>
                     <input
                       ref={fileInputRef}
                       type="file"
@@ -291,7 +291,7 @@ export default function AdvertiserPortal() {
                     value={formData.imageUrl}
                     onChange={e => setFormData({ ...formData, imageUrl: e.target.value })}
                     placeholder="https://example.com/image.jpg"
-                    className={`w-full ${inputBg} border ${inputBorder} rounded-lg px-4 py-2 mt-1 ${text} focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm`}
+                    className={`w-full ${inputBg} border ${inputBorder} rounded-lg px-4 py-2 mt-1 ${text} focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm`}
                   />
                 </div>
 
@@ -303,7 +303,7 @@ export default function AdvertiserPortal() {
                     onChange={e => setFormData({ ...formData, quote: e.target.value })}
                     placeholder="Upgrade your workflow today."
                     rows={2}
-                    className={`w-full ${inputBg} border ${inputBorder} rounded-lg px-4 py-2 ${text} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                    className={`w-full ${inputBg} border ${inputBorder} rounded-lg px-4 py-2 ${text} focus:outline-none focus:ring-2 focus:ring-emerald-500`}
                   />
                 </div>
 
@@ -314,7 +314,7 @@ export default function AdvertiserPortal() {
                     value={formData.link}
                     onChange={e => setFormData({ ...formData, link: e.target.value })}
                     placeholder="https://yourwebsite.com"
-                    className={`w-full ${inputBg} border ${inputBorder} rounded-lg px-4 py-2 ${text} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                    className={`w-full ${inputBg} border ${inputBorder} rounded-lg px-4 py-2 ${text} focus:outline-none focus:ring-2 focus:ring-emerald-500`}
                   />
                 </div>
 
@@ -324,7 +324,7 @@ export default function AdvertiserPortal() {
                     <select
                       value={formData.targetChatbot}
                       onChange={e => setFormData({ ...formData, targetChatbot: e.target.value })}
-                      className={`w-full ${inputBg} border ${inputBorder} rounded-lg px-4 py-2 ${text} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                      className={`w-full ${inputBg} border ${inputBorder} rounded-lg px-4 py-2 ${text} focus:outline-none focus:ring-2 focus:ring-emerald-500`}
                     >
                       <option value="all">All Chatbots</option>
                       <option value="chatgpt">ChatGPT</option>
@@ -340,7 +340,7 @@ export default function AdvertiserPortal() {
                       max="10"
                       value={formData.priority}
                       onChange={e => setFormData({ ...formData, priority: parseInt(e.target.value) || 1 })}
-                      className={`w-full ${inputBg} border ${inputBorder} rounded-lg px-4 py-2 ${text} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                      className={`w-full ${inputBg} border ${inputBorder} rounded-lg px-4 py-2 ${text} focus:outline-none focus:ring-2 focus:ring-emerald-500`}
                     />
                   </div>
                 </div>
@@ -352,7 +352,7 @@ export default function AdvertiserPortal() {
                       type="date"
                       value={formData.startDate}
                       onChange={e => setFormData({ ...formData, startDate: e.target.value })}
-                      className={`w-full ${inputBg} border ${inputBorder} rounded-lg px-4 py-2 ${text} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                      className={`w-full ${inputBg} border ${inputBorder} rounded-lg px-4 py-2 ${text} focus:outline-none focus:ring-2 focus:ring-emerald-500`}
                     />
                   </div>
                   <div>
@@ -361,14 +361,14 @@ export default function AdvertiserPortal() {
                       type="date"
                       value={formData.endDate}
                       onChange={e => setFormData({ ...formData, endDate: e.target.value })}
-                      className={`w-full ${inputBg} border ${inputBorder} rounded-lg px-4 py-2 ${text} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                      className={`w-full ${inputBg} border ${inputBorder} rounded-lg px-4 py-2 ${text} focus:outline-none focus:ring-2 focus:ring-emerald-500`}
                     />
                   </div>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-2.5 px-4 rounded-lg transition-colors mt-2"
+                  className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-2.5 px-4 rounded-lg transition-colors mt-2"
                 >
                   {editingId ? 'Save Changes' : 'Launch Ad'}
                 </button>
@@ -498,7 +498,7 @@ export default function AdvertiserPortal() {
                         <p className={`${isDark ? 'text-neutral-200' : 'text-gray-800'} font-medium leading-relaxed mb-2`}>
                           &quot;{ad.quote}&quot;
                         </p>
-                        <a href={ad.link} target="_blank" rel="noreferrer" className="text-sm text-blue-400 hover:text-blue-300 truncate block mb-3">
+                        <a href={ad.link} target="_blank" rel="noreferrer" className="text-sm text-emerald-400 hover:text-emerald-300 truncate block mb-3">
                           {ad.link || 'No link'}
                         </a>
 

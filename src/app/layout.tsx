@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Chatbot Ads — Advertiser Portal",
-  description: "Manage your sponsored ads across AI chatbot platforms.",
+  title: "PromotAI - Advertiser Portal",
+  description: "Manage your AI chatbot ad campaigns",
 };
 
 export default function RootLayout({
