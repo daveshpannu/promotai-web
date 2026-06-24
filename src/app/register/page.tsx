@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { motion } from 'motion/react';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -43,6 +44,23 @@ export default function RegisterPage() {
         {/* Halftone texture overlay */}
         <div className="absolute inset-0 bg-halftone opacity-30 z-0 mix-blend-overlay"></div>
         
+        {/* Floating Paper Cut Assets */}
+        <motion.div 
+          animate={{ y: [-15, 15, -15], rotate: [-5, 5, -5] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[15%] left-[5%] w-[400px] mix-blend-multiply opacity-90 z-0"
+        >
+          <img src="/paper_plane.png" alt="Airplane" className="w-full h-auto drop-shadow-xl" />
+        </motion.div>
+        
+        <motion.div 
+          animate={{ x: [20, -20, 20] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-[10%] right-[-15%] w-[600px] mix-blend-multiply opacity-70 z-0 filter"
+        >
+          <img src="/paper_cloud_1.png" alt="Cloud" className="w-full h-auto" />
+        </motion.div>
+
         {/* Logo area */}
         <div className="relative z-10 flex items-center gap-3">
           <div className="w-12 h-12 bg-paper-cream border-[3px] border-ink-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] flex items-center justify-center transform -rotate-6">
@@ -51,24 +69,11 @@ export default function RegisterPage() {
           <span className="font-display font-black text-4xl tracking-tight text-ink-black">PromotAI</span>
         </div>
 
-        {/* Hero image area */}
-        <div className="relative z-10 flex-1 flex items-center justify-center mt-12 mb-12">
-          <div className="w-full max-w-md aspect-[4/3] bg-paper-cream border-[4px] border-ink-black shadow-[12px_12px_0_0_rgba(0,0,0,1)] p-4 transform -rotate-2 hover:-rotate-1 transition-transform overflow-hidden cursor-pointer">
-            <div className="w-full h-full border-2 border-ink-black/20"
-              style={{
-                backgroundImage: "url('/halftone_clouds.png')",
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-            />
-          </div>
-        </div>
-
-        <div className="relative z-10 max-w-sm">
-          <h2 className="font-display font-black text-5xl text-ink-black leading-[0.9] tracking-tighter uppercase mb-4">
+        <div className="relative z-10 max-w-sm mt-auto">
+          <h2 className="font-display font-black text-5xl text-ink-black leading-[0.9] tracking-tighter uppercase mb-4 drop-shadow-sm">
             Sky's The Limit
           </h2>
-          <p className="font-bold text-lg text-ink-black bg-paper-cream/80 p-4 border-[4px] border-ink-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] transform rotate-1">
+          <p className="font-bold text-lg text-ink-black bg-paper-cream/80 backdrop-blur-sm p-4 border-[4px] border-ink-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] transform rotate-1">
             Create an account to start deploying your campaigns directly into the world's most popular AI environments.
           </p>
         </div>
@@ -80,7 +85,7 @@ export default function RegisterPage() {
           JOIN NOW
         </div>
         
-        <div className="w-full max-w-md bg-paper-cream border-[4px] border-ink-black shadow-[12px_12px_0_0_rgba(0,0,0,1)] p-10 transform rotate-1 relative z-10">
+        <div className="w-full max-w-md bg-paper-cream border-[4px] border-ink-black shadow-[12px_12px_0_0_rgba(0,0,0,1)] p-10 transform rotate-1 relative z-10 hover:-rotate-0 transition-transform">
           <div className="mb-10 text-center">
             <h1 className="font-display font-black text-5xl text-ink-black uppercase tracking-tighter drop-shadow-sm">Onboard</h1>
             <p className="text-ink-muted font-bold mt-2">Initialize your advertiser profile.</p>

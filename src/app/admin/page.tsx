@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db";
 import Link from "next/link";
 import React from "react";
 import { RevealStagger } from "@/components/Reveal";
+import { AdminFloatingAssets } from "@/components/FloatingAssets";
 
 export default async function AdminDashboard() {
   const session = await auth();
@@ -55,6 +56,7 @@ export default async function AdminDashboard() {
     <div className="min-h-[100dvh] bg-riso-blue font-sans p-6 md:p-12 text-ink-black selection:bg-riso-coral selection:text-ink-black overflow-x-hidden relative">
       
       <div className="absolute inset-0 bg-halftone opacity-40 mix-blend-overlay pointer-events-none"></div>
+      <AdminFloatingAssets />
 
       <div className="max-w-[1400px] mx-auto space-y-12 mt-6 relative z-10">
         

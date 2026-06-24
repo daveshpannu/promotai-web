@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { motion } from 'motion/react';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -44,32 +45,36 @@ export default function LoginPage() {
         {/* Halftone texture overlay */}
         <div className="absolute inset-0 bg-halftone opacity-50 z-0"></div>
         
+        {/* Floating Paper Cut Assets */}
+        <motion.div 
+          animate={{ y: [-10, 10, -10], rotate: [-2, 2, -2] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[20%] right-[10%] w-[350px] mix-blend-multiply opacity-90 z-0"
+        >
+          <img src="/paper_boat.png" alt="Boat" className="w-full h-auto drop-shadow-xl" />
+        </motion.div>
+        
+        <motion.div 
+          animate={{ x: [-20, 20, -20] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-[-10%] left-[-10%] w-[500px] mix-blend-multiply opacity-60 z-0 filter grayscale"
+        >
+          <img src="/paper_cloud_1.png" alt="Cloud" className="w-full h-auto" />
+        </motion.div>
+
         {/* Logo area */}
         <div className="relative z-10 flex items-center gap-3">
           <div className="w-12 h-12 bg-paper-cream border-[3px] border-ink-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] flex items-center justify-center transform -rotate-6">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-ink-black)" strokeWidth="3" strokeLinecap="square" strokeLinejoin="miter"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" /><path d="M3 5v14a2 2 0 0 0 2 2h16v-5" /><path d="M18 12a2 2 0 0 0 0 4h4v-4Z" /></svg>
           </div>
-          <span className="font-display font-black text-4xl tracking-tight text-paper-cream">PromotAI</span>
+          <span className="font-display font-black text-4xl tracking-tight text-paper-cream drop-shadow-md">PromotAI</span>
         </div>
 
-        {/* Hero image area */}
-        <div className="relative z-10 flex-1 flex items-center justify-center mt-12 mb-12">
-          <div className="w-full max-w-md aspect-square bg-paper-cream border-[4px] border-ink-black shadow-[12px_12px_0_0_rgba(0,0,0,1)] p-4 transform rotate-3 hover:rotate-1 transition-transform overflow-hidden cursor-pointer">
-            <div className="w-full h-full border-2 border-ink-black/20"
-              style={{
-                backgroundImage: "url('/blueprint_ship.png')",
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-            />
-          </div>
-        </div>
-
-        <div className="relative z-10 max-w-sm">
-          <h2 className="font-display font-black text-5xl text-paper-cream leading-[0.9] tracking-tighter uppercase mb-4">
+        <div className="relative z-10 max-w-sm mt-auto">
+          <h2 className="font-display font-black text-5xl text-paper-cream leading-[0.9] tracking-tighter uppercase mb-4 drop-shadow-md">
             Navigate The Ad Sea
           </h2>
-          <p className="font-medium text-lg text-paper-cream/90 bg-ink-black/20 p-4 border-l-[4px] border-paper-cream">
+          <p className="font-medium text-lg text-paper-cream/90 bg-ink-black/30 p-4 border-l-[4px] border-paper-cream backdrop-blur-sm">
             Log in to manage your campaigns, review analytics, and chart a course for your brand across major AI interfaces.
           </p>
         </div>
@@ -81,7 +86,7 @@ export default function LoginPage() {
           LOG IN
         </div>
 
-        <div className="w-full max-w-md bg-paper-cream border-[4px] border-ink-black shadow-[12px_12px_0_0_rgba(0,0,0,1)] p-10 transform -rotate-1 relative z-10">
+        <div className="w-full max-w-md bg-paper-cream border-[4px] border-ink-black shadow-[12px_12px_0_0_rgba(0,0,0,1)] p-10 transform -rotate-1 relative z-10 hover:rotate-0 transition-transform">
           <div className="mb-10 text-center">
             <h1 className="font-display font-black text-5xl text-ink-black uppercase tracking-tighter drop-shadow-sm">Welcome Back</h1>
             <p className="text-ink-muted font-bold mt-2">Enter your credentials to access the terminal.</p>

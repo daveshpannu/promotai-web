@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'motion/react';
+import { motion, useScroll, useTransform } from 'motion/react';
 import { RevealStagger } from '@/components/Reveal';
 
 interface Ad {
@@ -25,6 +25,11 @@ export default function AdvertiserPortal() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
+  const cloudY = useTransform(scrollYProgress, [0, 1], [0, -300]);
+  const boatY = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
   const [ads, setAds] = useState<Ad[]>([]);
   const [loading, setLoading] = useState(true);
@@ -177,11 +182,25 @@ export default function AdvertiserPortal() {
   }
 
   return (
-    <div className="min-h-[100dvh] bg-paper-cream p-6 md:p-12 font-sans selection:bg-riso-blue selection:text-paper-cream overflow-x-hidden relative">
+    <div ref={containerRef} className="min-h-[100dvh] bg-paper-cream p-6 md:p-12 font-sans selection:bg-riso-blue selection:text-paper-cream overflow-x-hidden relative">
       
       {/* Background Halftone Decorative Elements */}
-      <div className="fixed top-0 left-0 w-64 h-64 bg-halftone rounded-full opacity-20 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
-      <div className="fixed bottom-0 right-0 w-96 h-96 bg-halftone rounded-full opacity-20 transform translate-x-1/4 translate-y-1/4 pointer-events-none"></div>
+      <div className="fixed top-0 left-0 w-64 h-64 bg-halftone rounded-full opacity-20 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0"></div>
+      
+      {/* Floating Parallax Assets */}
+      <motion.div 
+        style={{ y: cloudY }}
+        className="fixed top-[10%] right-[-10%] w-[500px] mix-blend-multiply opacity-50 pointer-events-none z-0"
+      >
+        <img src="/paper_cloud_1.png" alt="Cloud" className="w-full h-auto filter grayscale" />
+      </motion.div>
+
+      <motion.div 
+        style={{ y: boatY }}
+        className="fixed bottom-[20%] left-[-5%] w-[300px] mix-blend-multiply opacity-80 pointer-events-none z-0"
+      >
+        <img src="/paper_boat.png" alt="Boat" className="w-full h-auto drop-shadow-md" />
+      </motion.div>
 
       <div className="max-w-[1400px] mx-auto relative z-10">
         {/* Header */}
@@ -189,20 +208,20 @@ export default function AdvertiserPortal() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-          className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 border-b-[4px] border-ink-black pb-8"
+          className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 border-b-[4px] border-ink-black pb-8 bg-paper-cream/80 backdrop-blur-sm p-6 shadow-[8px_8px_0_0_rgba(0,0,0,1)] transform -rotate-1"
         >
           <div>
-            <h1 className="font-display font-black text-5xl md:text-7xl text-ink-black leading-none tracking-tighter uppercase drop-shadow-sm transform -rotate-1">
+            <h1 className="font-display font-black text-5xl md:text-7xl text-ink-black leading-none tracking-tighter uppercase drop-shadow-sm transform rotate-1">
               Campaign Deck
             </h1>
-            <p className="text-ink-muted mt-2 font-bold bg-paper-dim border-2 border-ink-black px-3 py-1 inline-block transform rotate-1 shadow-[2px_2px_0_0_rgba(0,0,0,1)]">
+            <p className="text-ink-muted mt-2 font-bold bg-paper-dim border-2 border-ink-black px-3 py-1 inline-block transform -rotate-2 shadow-[2px_2px_0_0_rgba(0,0,0,1)]">
               Advertiser: {session?.user?.name || session?.user?.email}
             </p>
           </div>
           <div className="flex items-center gap-4 mt-6 md:mt-0">
             <button
               onClick={() => signOut()}
-              className="interactive-lift text-sm font-black uppercase tracking-widest bg-paper-cream border-[3px] border-ink-black text-ink-black px-6 py-3 shadow-brutal hover:shadow-brutal-hover"
+              className="interactive-lift text-sm font-black uppercase tracking-widest bg-white border-[3px] border-ink-black text-ink-black px-6 py-3 shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:shadow-[6px_6px_0_0_rgba(0,0,0,1)]"
             >
               Log Out
             </button>
@@ -218,7 +237,7 @@ export default function AdvertiserPortal() {
             className="lg:col-span-4 space-y-8"
           >
             {/* Ad Form */}
-            <div className="bg-riso-blue border-[4px] border-ink-black p-8 shadow-[12px_12px_0_0_rgba(0,0,0,1)] relative transform -rotate-1">
+            <div className="bg-riso-blue border-[4px] border-ink-black p-8 shadow-[12px_12px_0_0_rgba(0,0,0,1)] relative transform rotate-1 hover:-rotate-0 transition-transform">
               <div className="absolute inset-0 bg-halftone pointer-events-none opacity-30 mix-blend-overlay"></div>
               
               <div className="flex justify-between items-center mb-8 relative z-10">
@@ -232,7 +251,7 @@ export default function AdvertiserPortal() {
 
               <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
                 {/* Image Upload */}
-                <div className="bg-paper-cream border-[3px] border-ink-black p-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)]">
+                <div className="bg-paper-cream border-[3px] border-ink-black p-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)] transform -rotate-1">
                   <label className="block text-sm font-black uppercase tracking-widest text-ink-black mb-2">Visual Asset</label>
                   <div className="border-[3px] border-dashed border-ink-muted bg-paper-dim p-6 text-center transition-all hover:bg-riso-blue/10 cursor-pointer group">
                     <input
@@ -258,7 +277,7 @@ export default function AdvertiserPortal() {
                   />
                 </div>
 
-                <div className="bg-paper-cream border-[3px] border-ink-black p-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)]">
+                <div className="bg-paper-cream border-[3px] border-ink-black p-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)] transform rotate-1">
                   <label className="block text-sm font-black uppercase tracking-widest text-ink-black mb-2">Punchy Copy</label>
                   <textarea
                     required
@@ -295,7 +314,7 @@ export default function AdvertiserPortal() {
                       <option value="gemini">Gemini</option>
                     </select>
                   </div>
-                  <div className="bg-paper-cream border-[3px] border-ink-black p-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)]">
+                  <div className="bg-paper-cream border-[3px] border-ink-black p-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)] transform -rotate-1">
                     <label className="block text-sm font-black uppercase tracking-widest text-ink-black mb-2">Weight</label>
                     <input
                       type="number"
@@ -319,9 +338,9 @@ export default function AdvertiserPortal() {
 
             {/* Ad Preview Simulator */}
             {(formData.imageUrl || formData.quote) && (
-              <div className="bg-paper-cream border-[4px] border-ink-black p-8 shadow-[12px_12px_0_0_rgba(0,0,0,1)] relative transform rotate-1">
+              <div className="bg-paper-cream border-[4px] border-ink-black p-8 shadow-[12px_12px_0_0_rgba(0,0,0,1)] relative transform -rotate-2">
                 <h3 className="font-display font-black text-3xl text-ink-black mb-6 uppercase tracking-tighter">Preview</h3>
-                <div className="relative border-[3px] border-ink-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] p-4 bg-white">
+                <div className="relative border-[3px] border-ink-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] p-4 bg-white transform rotate-1">
                   <div className="text-xs font-black uppercase tracking-widest text-riso-blue mb-3 border-b-2 border-ink-black/10 pb-2">
                     Sponsored Box
                   </div>
@@ -350,7 +369,7 @@ export default function AdvertiserPortal() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2, ease: [0.23, 1, 0.32, 1] }}
-            className="lg:col-span-8"
+            className="lg:col-span-8 relative z-10"
           >
             {loading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -358,7 +377,7 @@ export default function AdvertiserPortal() {
                 <div className="h-72 bg-paper-dim border-[4px] border-ink-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] animate-pulse delay-75"></div>
               </div>
             ) : ads.length === 0 ? (
-              <div className="bg-paper-cream border-[4px] border-dashed border-ink-black p-16 flex items-center justify-center min-h-[400px] transform rotate-1">
+              <div className="bg-paper-cream border-[4px] border-dashed border-ink-black p-16 flex items-center justify-center min-h-[400px] transform rotate-1 shadow-[8px_8px_0_0_rgba(0,0,0,1)]">
                 <p className="text-ink-muted font-display font-black text-3xl text-center uppercase">No active campaigns. Time to build.</p>
               </div>
             ) : (
@@ -374,7 +393,7 @@ export default function AdvertiserPortal() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5, delay: 0.1 * i, ease: [0.23, 1, 0.32, 1] }}
-                      className={`bg-paper-cream border-[4px] ${ad.isActive ? 'border-ink-black shadow-[8px_8px_0_0_rgba(0,0,0,1)]' : 'border-ink-muted shadow-none opacity-80'} flex flex-col group transition-all transform ${isFeatured ? 'md:col-span-2 md:flex-row' : ''} ${i % 2 === 0 ? 'hover:-rotate-1' : 'hover:rotate-1'}`}
+                      className={`bg-white border-[4px] ${ad.isActive ? 'border-ink-black shadow-[8px_8px_0_0_rgba(0,0,0,1)]' : 'border-ink-muted shadow-none opacity-80'} flex flex-col group transition-all transform ${isFeatured ? 'md:col-span-2 md:flex-row' : ''} ${i % 2 === 0 ? 'hover:-rotate-1' : 'hover:rotate-1'}`}
                     >
                       {/* Image Area */}
                       <div className={`relative overflow-hidden border-b-[4px] ${isFeatured ? 'md:border-b-0 md:border-r-[4px] md:w-1/2 h-full min-h-[240px]' : 'h-48'} border-ink-black bg-white`}>
@@ -388,17 +407,17 @@ export default function AdvertiserPortal() {
 
                       {/* Content Area */}
                       <div className={`flex-1 p-6 flex flex-col ${isFeatured ? 'md:w-1/2' : ''}`}>
-                        <p className="text-ink-black font-bold leading-relaxed mb-6 flex-1 text-lg">
+                        <p className="text-ink-black font-bold leading-relaxed mb-6 flex-1 text-lg bg-paper-cream p-3 border-[3px] border-ink-black transform rotate-1">
                           &quot;{ad.quote}&quot;
                         </p>
                         
                         {/* Metrics Bento Row */}
-                        <div className="grid grid-cols-3 gap-0 border-[3px] border-ink-black mb-6 shadow-[4px_4px_0_0_rgba(0,0,0,1)]">
-                          <div className="bg-paper-cream p-3 text-center border-r-[3px] border-ink-black">
+                        <div className="grid grid-cols-3 gap-0 border-[3px] border-ink-black mb-6 shadow-[4px_4px_0_0_rgba(0,0,0,1)] transform -rotate-1">
+                          <div className="bg-white p-3 text-center border-r-[3px] border-ink-black">
                             <div className="text-[10px] font-black uppercase tracking-widest text-ink-muted mb-1">Views</div>
                             <div className="font-display font-black text-2xl text-ink-black">{ad.totalViews.toLocaleString()}</div>
                           </div>
-                          <div className="bg-paper-cream p-3 text-center border-r-[3px] border-ink-black">
+                          <div className="bg-white p-3 text-center border-r-[3px] border-ink-black">
                             <div className="text-[10px] font-black uppercase tracking-widest text-ink-muted mb-1">Clicks</div>
                             <div className="font-display font-black text-2xl text-ink-black">{ad.totalClicks.toLocaleString()}</div>
                           </div>
@@ -409,7 +428,7 @@ export default function AdvertiserPortal() {
                         </div>
 
                         {/* Actions */}
-                        <div className="flex justify-between items-center pt-4 border-t-[3px] border-ink-black">
+                        <div className="flex justify-between items-center pt-4 border-t-[3px] border-ink-black border-dashed">
                           <button
                             onClick={() => handleToggleStatus(ad)}
                             className={`interactive-lift px-4 py-2 border-2 border-ink-black shadow-[2px_2px_0_0_rgba(0,0,0,1)] text-xs font-black uppercase tracking-widest ${ad.isActive ? 'bg-paper-dim text-ink-black hover:bg-paper-cream' : 'bg-riso-coral text-ink-black hover:bg-[#ff8a66]'}`}
@@ -417,8 +436,8 @@ export default function AdvertiserPortal() {
                             {ad.isActive ? 'Pause' : 'Activate'}
                           </button>
                           <div className="flex gap-4">
-                            <button onClick={() => startEdit(ad)} className="text-sm font-black uppercase tracking-widest text-ink-muted hover:text-riso-blue transition-colors underline decoration-2 underline-offset-4">Edit</button>
-                            <button onClick={() => handleDelete(ad.id)} className="text-sm font-black uppercase tracking-widest text-red-500 hover:text-red-700 transition-colors underline decoration-2 underline-offset-4">Delete</button>
+                            <button onClick={() => startEdit(ad)} className="text-sm font-black uppercase tracking-widest text-ink-muted hover:text-riso-blue transition-colors underline decoration-2 underline-offset-4 bg-paper-cream px-2 border-2 border-ink-black transform rotate-2">Edit</button>
+                            <button onClick={() => handleDelete(ad.id)} className="text-sm font-black uppercase tracking-widest text-paper-cream hover:text-white transition-colors underline decoration-2 underline-offset-4 bg-ink-black px-2 border-2 border-ink-black transform -rotate-1">Delete</button>
                           </div>
                         </div>
                       </div>
