@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
-import { Albert_Sans, Alumni_Sans_Pinstripe } from "next/font/google";
+import { Outfit, Fraunces } from "next/font/google";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
-const albertSans = Albert_Sans({
-  variable: "--font-albert-sans",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
-const alumniPinstripe = Alumni_Sans_Pinstripe({
-  weight: "400",
-  variable: "--font-alumni-pinstripe",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
 });
 
@@ -28,9 +27,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${albertSans.variable} ${alumniPinstripe.variable} h-full antialiased bg-lacquer-black`}
+      className={`${outfit.variable} ${fraunces.variable} h-full antialiased bg-paper-cream`}
     >
-      <body className="min-h-full flex flex-col font-sans text-text-warm">
+      <body className="min-h-full flex flex-col font-sans text-ink-black overflow-x-hidden">
         <SessionProvider>
           <ThemeProvider>{children}</ThemeProvider>
         </SessionProvider>

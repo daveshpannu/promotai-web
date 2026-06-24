@@ -1,74 +1,76 @@
 @import "tailwindcss";
 
 :root {
-  /* Impeccable Colors (Neo Kinpaku System) */
-  --color-lacquer-black: oklch(7% 0.006 95);
-  --color-lacquer-deep: oklch(4% 0.004 95);
-  --color-raised-lacquer: oklch(11% 0.006 95);
-  --color-graphite: oklch(15% 0.008 95);
-  --color-graphite-2: oklch(19% 0.008 95);
-
-  --color-champagne: oklch(91% 0 0);
-  --color-text-warm: oklch(88% 0 0);
-  --color-text-muted: oklch(72% 0 0);
-  --color-text-faint: oklch(62% 0 0);
-
-  --color-kinpaku-gold: oklch(84% 0.19 80.46);
-  --color-kinpaku-rich: oklch(77% 0.13 82);
-  --color-kinpaku-deep: oklch(61% 0.085 78);
-  --color-kinpaku-pale: oklch(86% 0.07 84);
-
-  --color-patina: oklch(70% 0.12 188);
-
-  --color-gold-hairline: oklch(78% 0 0 / 0.16);
-  --color-gold-hairline-strong: oklch(74% 0.09 82 / 0.6);
-
+  /* Playful Halftone & Risograph Palette */
+  --color-paper-cream: oklch(97% 0.01 80);
+  --color-paper-dim: oklch(94% 0.01 80);
+  
+  --color-riso-blue: oklch(58% 0.22 260);
+  --color-riso-blue-dark: oklch(48% 0.2 260);
+  
+  --color-riso-coral: oklch(65% 0.2 25);
+  
+  --color-ink-black: oklch(25% 0.02 260);
+  --color-ink-muted: oklch(45% 0.02 260);
+  
   /* Emil Kowalski Animation Easing Curves */
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @theme inline {
-  --color-lacquer-black: var(--color-lacquer-black);
-  --color-lacquer-deep: var(--color-lacquer-deep);
-  --color-raised-lacquer: var(--color-raised-lacquer);
-  --color-graphite: var(--color-graphite);
-  --color-graphite-2: var(--color-graphite-2);
+  --color-paper-cream: var(--color-paper-cream);
+  --color-paper-dim: var(--color-paper-dim);
   
-  --color-champagne: var(--color-champagne);
-  --color-text-warm: var(--color-text-warm);
-  --color-text-muted: var(--color-text-muted);
-  --color-text-faint: var(--color-text-faint);
+  --color-riso-blue: var(--color-riso-blue);
+  --color-riso-blue-dark: var(--color-riso-blue-dark);
+  
+  --color-riso-coral: var(--color-riso-coral);
+  
+  --color-ink-black: var(--color-ink-black);
+  --color-ink-muted: var(--color-ink-muted);
 
-  --color-kinpaku-gold: var(--color-kinpaku-gold);
-  --color-kinpaku-rich: var(--color-kinpaku-rich);
-  --color-kinpaku-deep: var(--color-kinpaku-deep);
-  --color-kinpaku-pale: var(--color-kinpaku-pale);
-  --color-patina: var(--color-patina);
-
-  --color-gold-hairline: var(--color-gold-hairline);
-  --color-gold-hairline-strong: var(--color-gold-hairline-strong);
-
-  --font-display: var(--font-alumni-pinstripe), sans-serif;
-  --font-sans: var(--font-albert-sans), sans-serif;
+  --font-display: var(--font-fraunces), serif;
+  --font-sans: var(--font-outfit), sans-serif;
 
   --ease-out-strong: var(--ease-out-strong);
   --ease-in-out-strong: var(--ease-in-out-strong);
+  --ease-spring: var(--ease-spring);
 }
 
 body {
-  background-color: var(--color-lacquer-black);
-  color: var(--color-text-warm);
+  background-color: var(--color-paper-cream);
+  color: var(--color-ink-black);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
-/* Emil Kowalski Button Physics */
-button {
-  transition: transform 160ms var(--ease-out-strong), background-color 160ms var(--ease-out-strong);
-}
-button:active {
-  transform: scale(0.97);
+/* Playful Brutalist/Riso Utilities */
+.shadow-brutal {
+  box-shadow: 6px 6px 0 0 var(--color-riso-blue);
+  border: 2px solid var(--color-ink-black);
 }
 
-/* Remove default dark mode inversion, Impeccable is always dark mode */
+.shadow-brutal-hover:hover {
+  box-shadow: 2px 2px 0 0 var(--color-riso-blue);
+  transform: translate(4px, 4px);
+}
+
+.bg-halftone {
+  background-image: radial-gradient(var(--color-riso-blue) 20%, transparent 20%),
+    radial-gradient(var(--color-riso-blue) 20%, transparent 20%);
+  background-size: 10px 10px;
+  background-position: 0 0, 5px 5px;
+  opacity: 0.1;
+}
+
+/* Emil Kowalski Button Physics */
+button, .interactive-lift {
+  transition: transform 160ms var(--ease-out-strong), box-shadow 160ms var(--ease-out-strong), background-color 160ms var(--ease-out-strong);
+}
+
+button:active, .interactive-lift:active {
+  transform: scale(0.96) translate(2px, 2px);
+  box-shadow: 0 0 0 0 var(--color-riso-blue);
+}

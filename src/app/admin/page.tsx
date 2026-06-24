@@ -52,18 +52,23 @@ export default async function AdminDashboard() {
   });
 
   return (
-    <div className="min-h-[100dvh] bg-lacquer-black font-sans p-6 md:p-12 text-text-warm selection:bg-kinpaku-gold selection:text-lacquer-black">
-      <div className="max-w-[1400px] mx-auto space-y-12 mt-6">
+    <div className="min-h-[100dvh] bg-riso-blue font-sans p-6 md:p-12 text-ink-black selection:bg-riso-coral selection:text-ink-black overflow-x-hidden relative">
+      
+      <div className="absolute inset-0 bg-halftone opacity-40 mix-blend-overlay pointer-events-none"></div>
+
+      <div className="max-w-[1400px] mx-auto space-y-12 mt-6 relative z-10">
         
         <RevealStagger delay={0}>
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-gold-hairline pb-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-b-[6px] border-ink-black pb-8 bg-paper-cream p-10 shadow-[16px_16px_0_0_rgba(0,0,0,1)] transform -rotate-1">
             <div>
-              <h1 className="font-display text-5xl md:text-7xl text-champagne leading-none tracking-tight">Oversight</h1>
-              <p className="text-text-muted mt-4 font-mono text-xs uppercase tracking-widest">Global Network Telemetry</p>
+              <h1 className="font-display font-black text-6xl md:text-8xl text-ink-black leading-none tracking-tighter uppercase drop-shadow-sm">Admin Control</h1>
+              <p className="text-ink-black mt-4 font-bold text-lg bg-riso-coral border-[3px] border-ink-black px-4 py-2 shadow-[4px_4px_0_0_rgba(0,0,0,1)] inline-block transform rotate-2">
+                Captain's Global Telemetry
+              </p>
             </div>
             <div className="flex gap-4 mt-8 md:mt-0">
-              <Link href="/" className="px-6 py-3 border border-gold-hairline hover:border-kinpaku-gold bg-raised-lacquer text-text-muted hover:text-kinpaku-gold transition-colors font-mono uppercase tracking-widest text-xs">
-                Exit Protocol
+              <Link href="/" className="interactive-lift px-8 py-4 border-[3px] border-ink-black bg-paper-cream text-ink-black font-black uppercase tracking-widest text-sm shadow-[6px_6px_0_0_rgba(0,0,0,1)]">
+                Back to Land
               </Link>
             </div>
           </div>
@@ -71,97 +76,97 @@ export default async function AdminDashboard() {
 
         {/* Global Stats Bento */}
         <RevealStagger delay={0.1}>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-px bg-gold-hairline border border-gold-hairline">
-            <div className="bg-raised-lacquer p-8 flex flex-col justify-between">
-              <div className="text-text-faint font-mono text-[10px] uppercase tracking-widest mb-4">Total Accounts</div>
-              <div className="text-5xl font-display text-champagne">{globalStats.totalUsers}</div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-0 border-[4px] border-ink-black shadow-[16px_16px_0_0_rgba(0,0,0,1)] transform rotate-1">
+            <div className="bg-paper-cream p-8 flex flex-col justify-between border-b-[4px] md:border-b-0 md:border-r-[4px] border-ink-black">
+              <div className="text-ink-muted font-black text-sm uppercase tracking-widest mb-4">Total Accounts</div>
+              <div className="text-6xl font-display font-black text-ink-black">{globalStats.totalUsers}</div>
             </div>
-            <div className="bg-raised-lacquer p-8 flex flex-col justify-between">
-              <div className="text-text-faint font-mono text-[10px] uppercase tracking-widest mb-4">Live Payloads</div>
-              <div className="text-5xl font-display text-champagne">{globalStats.totalAds}</div>
+            <div className="bg-paper-dim p-8 flex flex-col justify-between border-b-[4px] md:border-b-0 md:border-r-[4px] border-ink-black">
+              <div className="text-ink-muted font-black text-sm uppercase tracking-widest mb-4">Live Payloads</div>
+              <div className="text-6xl font-display font-black text-ink-black">{globalStats.totalAds}</div>
             </div>
-            <div className="bg-raised-lacquer p-8 flex flex-col justify-between">
-              <div className="text-text-faint font-mono text-[10px] uppercase tracking-widest mb-4">Impressions</div>
-              <div className="text-5xl font-display text-kinpaku-gold">{globalStats.totalViews.toLocaleString()}</div>
+            <div className="bg-riso-coral p-8 flex flex-col justify-between border-b-[4px] md:border-b-0 md:border-r-[4px] border-ink-black">
+              <div className="text-ink-black font-black text-sm uppercase tracking-widest mb-4">Impressions</div>
+              <div className="text-6xl font-display font-black text-ink-black">{globalStats.totalViews.toLocaleString()}</div>
             </div>
-            <div className="bg-raised-lacquer p-8 flex flex-col justify-between">
-              <div className="text-text-faint font-mono text-[10px] uppercase tracking-widest mb-4">Engagements</div>
-              <div className="text-5xl font-display text-patina">{globalStats.totalClicks.toLocaleString()}</div>
+            <div className="bg-paper-cream p-8 flex flex-col justify-between">
+              <div className="text-ink-muted font-black text-sm uppercase tracking-widest mb-4">Engagements</div>
+              <div className="text-6xl font-display font-black text-ink-black">{globalStats.totalClicks.toLocaleString()}</div>
             </div>
           </div>
         </RevealStagger>
 
         {/* User Table */}
         <RevealStagger delay={0.2}>
-          <div className="border border-gold-hairline bg-raised-lacquer">
-            <div className="px-8 py-6 border-b border-gold-hairline bg-lacquer-deep">
-              <h2 className="text-2xl font-display text-champagne">Advertiser Nodes</h2>
+          <div className="border-[4px] border-ink-black bg-paper-cream shadow-[16px_16px_0_0_rgba(0,0,0,1)] transform -rotate-[0.5deg]">
+            <div className="px-10 py-8 border-b-[4px] border-ink-black bg-paper-dim flex justify-between items-center">
+              <h2 className="text-4xl font-display font-black text-ink-black uppercase tracking-tighter">Advertiser Nodes</h2>
             </div>
             <div className="overflow-x-auto">
-              <table className="w-full text-left">
-                <thead className="bg-lacquer-black border-b border-gold-hairline">
+              <table className="w-full text-left border-collapse">
+                <thead className="bg-ink-black">
                   <tr>
-                    <th className="px-8 py-4 font-mono text-[10px] uppercase tracking-widest text-text-faint">Identity</th>
-                    <th className="px-8 py-4 font-mono text-[10px] uppercase tracking-widest text-text-faint">Origin Date</th>
-                    <th className="px-8 py-4 font-mono text-[10px] uppercase tracking-widest text-text-faint">Payloads (Live/All)</th>
-                    <th className="px-8 py-4 font-mono text-[10px] uppercase tracking-widest text-text-faint">Volume</th>
-                    <th className="px-8 py-4 font-mono text-[10px] uppercase tracking-widest text-text-faint">Yield</th>
+                    <th className="px-10 py-5 font-black text-sm uppercase tracking-widest text-paper-cream">Identity</th>
+                    <th className="px-10 py-5 font-black text-sm uppercase tracking-widest text-paper-cream">Origin Date</th>
+                    <th className="px-10 py-5 font-black text-sm uppercase tracking-widest text-paper-cream">Payloads (Live/All)</th>
+                    <th className="px-10 py-5 font-black text-sm uppercase tracking-widest text-paper-cream">Volume</th>
+                    <th className="px-10 py-5 font-black text-sm uppercase tracking-widest text-paper-cream">Yield</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gold-hairline">
+                <tbody className="divide-y-[3px] divide-ink-black">
                   {userStats.length === 0 ? (
                     <tr>
-                      <td colSpan={5} className="px-8 py-16 text-center text-text-faint font-mono text-sm uppercase tracking-widest">
+                      <td colSpan={5} className="px-10 py-24 text-center text-ink-muted font-black text-xl uppercase tracking-widest">
                         Zero nodes detected.
                       </td>
                     </tr>
                   ) : (
-                    userStats.map((user) => (
+                    userStats.map((user, idx) => (
                       <React.Fragment key={user.id}>
                         {/* User Summary Row */}
-                        <tr className="hover:bg-lacquer-black transition-colors group">
-                          <td className="px-8 py-6">
-                            <div className="text-champagne mb-1">{user.name}</div>
-                            <div className="text-sm text-text-muted">{user.email}</div>
-                            <div className="text-[10px] text-text-faint font-mono mt-2 uppercase">ID: {user.id.substring(0, 8)}...</div>
+                        <tr className={`transition-colors group ${idx % 2 === 0 ? 'bg-paper-cream' : 'bg-paper-dim'}`}>
+                          <td className="px-10 py-8 border-r-[3px] border-ink-black">
+                            <div className="text-ink-black font-black text-xl mb-1">{user.name}</div>
+                            <div className="text-base text-ink-muted font-bold">{user.email}</div>
+                            <div className="text-xs text-ink-muted font-black mt-3 uppercase border-2 border-ink-muted/30 inline-block px-2 py-1">ID: {user.id.substring(0, 8)}...</div>
                           </td>
-                          <td className="px-8 py-6 text-text-muted text-sm">{user.createdAt}</td>
-                          <td className="px-8 py-6">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 border border-gold-hairline text-xs font-mono">
-                              <span className={`w-1.5 h-1.5 ${user.activeAds > 0 ? 'bg-kinpaku-gold' : 'bg-graphite'}`}></span>
-                              <span className="text-champagne">{user.activeAds}</span>
-                              <span className="text-text-faint">/ {user.totalAds}</span>
+                          <td className="px-10 py-8 text-ink-black font-bold text-lg border-r-[3px] border-ink-black">{user.createdAt}</td>
+                          <td className="px-10 py-8 border-r-[3px] border-ink-black">
+                            <div className="inline-flex items-center gap-3 px-4 py-2 border-[3px] border-ink-black text-lg font-black bg-white shadow-[4px_4px_0_0_rgba(0,0,0,1)]">
+                              <span className={`w-3 h-3 border-2 border-ink-black ${user.activeAds > 0 ? 'bg-riso-coral' : 'bg-paper-dim'}`}></span>
+                              <span className="text-ink-black">{user.activeAds}</span>
+                              <span className="text-ink-muted">/ {user.totalAds}</span>
                             </div>
                           </td>
-                          <td className="px-8 py-6 font-mono text-champagne">{user.totalViews.toLocaleString()}</td>
-                          <td className="px-8 py-6 font-mono text-champagne">{user.totalClicks.toLocaleString()}</td>
+                          <td className="px-10 py-8 font-black text-2xl text-ink-black border-r-[3px] border-ink-black">{user.totalViews.toLocaleString()}</td>
+                          <td className="px-10 py-8 font-black text-2xl text-ink-black">{user.totalClicks.toLocaleString()}</td>
                         </tr>
                         
                         {/* Ads Detail Sub-row */}
                         {user.ads.length > 0 && (
-                          <tr className="bg-lacquer-deep">
-                            <td colSpan={5} className="px-8 py-8 border-b-2 border-gold-hairline">
-                              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-gold-hairline border border-gold-hairline">
-                                {user.ads.map(ad => (
-                                  <div key={ad.id} className="p-6 bg-raised-lacquer flex flex-col justify-between">
+                          <tr className="bg-riso-blue/10">
+                            <td colSpan={5} className="px-10 py-10 border-b-[4px] border-ink-black">
+                              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {user.ads.map((ad, i) => (
+                                  <div key={ad.id} className={`border-[4px] border-ink-black p-6 bg-paper-cream flex flex-col justify-between shadow-[8px_8px_0_0_rgba(0,0,0,1)] transform ${i % 2 === 0 ? 'rotate-1' : '-rotate-1'} hover:rotate-0 transition-transform`}>
                                     <div>
-                                      <div className="flex justify-between items-start mb-4">
-                                        <span className="text-champagne text-sm line-clamp-2 pr-4 leading-relaxed flex-1">"{ad.quote}"</span>
-                                        <span className={`text-[10px] font-mono tracking-widest uppercase px-2 py-1 border ${ad.isActive ? 'border-kinpaku-gold text-kinpaku-gold' : 'border-text-faint text-text-faint'}`}>
+                                      <div className="flex justify-between items-start mb-6">
+                                        <span className="text-ink-black font-bold text-lg line-clamp-2 pr-4 leading-relaxed flex-1">"{ad.quote}"</span>
+                                        <span className={`text-[10px] font-black uppercase px-3 py-1 border-[2px] border-ink-black shadow-[2px_2px_0_0_rgba(0,0,0,1)] ${ad.isActive ? 'bg-riso-coral text-ink-black' : 'bg-paper-dim text-ink-muted'}`}>
                                           {ad.isActive ? 'Live' : 'Halted'}
                                         </span>
                                       </div>
-                                      <div className="text-[10px] font-mono text-patina truncate mb-4">
+                                      <div className="text-xs font-bold text-riso-blue truncate mb-6 bg-white border-2 border-ink-black p-2">
                                         {ad.link}
                                       </div>
                                     </div>
                                     
-                                    <div className="flex items-center justify-between pt-4 border-t border-white/5">
-                                      <div className="flex gap-4 font-mono text-[10px] text-text-muted tracking-widest uppercase">
+                                    <div className="flex items-center justify-between pt-4 border-t-[3px] border-ink-black border-dashed">
+                                      <div className="flex gap-4 font-black text-sm text-ink-black tracking-widest uppercase">
                                         <span title="Views">V: {ad.totalViews.toLocaleString()}</span>
                                         <span title="Clicks">C: {ad.totalClicks.toLocaleString()}</span>
                                       </div>
-                                      <div className="text-[10px] font-mono uppercase text-text-faint tracking-widest">
+                                      <div className="text-xs font-black uppercase text-paper-cream bg-ink-black px-2 py-1">
                                         {ad.targetChatbot}
                                       </div>
                                     </div>
