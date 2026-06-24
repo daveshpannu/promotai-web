@@ -11,53 +11,65 @@ export default function MarketingPage() {
     offset: ["start start", "end end"]
   });
 
-  // Parallax transform physics
-  const cloud1Y = useTransform(scrollYProgress, [0, 1], [0, -500]);
-  const cloud2Y = useTransform(scrollYProgress, [0, 1], [0, -200]);
-  const cloud2X = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  // Epic Parallax transform physics
+  const cloud1Y = useTransform(scrollYProgress, [0, 1], [0, -1000]);
+  const cloud1X = useTransform(scrollYProgress, [0, 1], [0, -200]);
   
-  const planeY = useTransform(scrollYProgress, [0, 1], [0, -800]);
-  const planeX = useTransform(scrollYProgress, [0, 1], [0, 800]);
+  const cloud2Y = useTransform(scrollYProgress, [0, 1], [0, -400]);
+  const cloud2X = useTransform(scrollYProgress, [0, 1], [0, 300]);
+  
+  const planeY = useTransform(scrollYProgress, [0, 1], [1000, -2000]);
+  const planeX = useTransform(scrollYProgress, [0, 1], [-1000, 2000]);
 
-  const boatY = useTransform(scrollYProgress, [0, 1], [200, -200]);
-  const boatX = useTransform(scrollYProgress, [0, 1], [-100, 100]);
+  const boatY = useTransform(scrollYProgress, [0, 1], [400, -800]);
+  const boatX = useTransform(scrollYProgress, [0, 1], [-200, 200]);
+
+  const hillY = useTransform(scrollYProgress, [0, 1], [300, -200]);
 
   return (
     <div ref={containerRef} className="min-h-[200vh] bg-paper-cream font-sans overflow-x-hidden selection:bg-riso-blue selection:text-paper-cream relative">
       
-      {/* --- PARALLAX PAPER CUT LAYERS --- */}
+      {/* --- EPIC PARALLAX PAPER CUT LAYERS --- */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         
-        {/* Deep Background Clouds */}
+        {/* Deep Background Clouds (Massive) */}
         <motion.div 
           style={{ y: cloud2Y, x: cloud2X }}
-          className="absolute top-[10%] -left-[10%] w-[600px] h-[400px] opacity-40 mix-blend-multiply"
+          className="absolute top-[-10%] left-[-20%] w-[120vw] h-[100vh] opacity-30 mix-blend-multiply"
         >
-          <img src="/paper_cloud_1.png" alt="Cloud" className="w-full h-full object-contain filter grayscale opacity-60" />
+          <img src="/paper_cloud_1.png" alt="Cloud" className="w-full h-full object-cover filter grayscale opacity-60" />
         </motion.div>
 
-        {/* Foreground Clouds */}
+        {/* Foreground Clouds (Massive) */}
         <motion.div 
-          style={{ y: cloud1Y }}
-          className="absolute top-[30%] -right-[5%] w-[800px] h-[500px] opacity-80 mix-blend-multiply"
+          style={{ y: cloud1Y, x: cloud1X }}
+          className="absolute top-[20%] right-[-30%] w-[150vw] h-[120vh] opacity-60 mix-blend-multiply"
         >
-          <img src="/paper_cloud_1.png" alt="Cloud" className="w-full h-full object-contain" />
+          <img src="/paper_cloud_1.png" alt="Cloud" className="w-full h-full object-cover" />
         </motion.div>
 
-        {/* The Airplane */}
+        {/* The Airplane (Massive & Fast) */}
         <motion.div 
           style={{ y: planeY, x: planeX }}
-          className="absolute top-[40%] -left-[10%] w-[300px] h-[300px] mix-blend-multiply transform rotate-45"
+          className="absolute top-[80%] left-[-20%] w-[800px] h-[800px] mix-blend-multiply transform rotate-[60deg] opacity-90 drop-shadow-2xl"
         >
           <img src="/paper_plane.png" alt="Airplane" className="w-full h-full object-contain" />
         </motion.div>
 
-        {/* The Boat (shows up lower down) */}
+        {/* The Boat (Large) */}
         <motion.div 
           style={{ y: boatY, x: boatX }}
-          className="absolute bottom-[-20%] right-[10%] w-[400px] h-[400px] mix-blend-multiply opacity-90"
+          className="absolute bottom-[-10%] right-[5%] w-[600px] h-[600px] mix-blend-multiply opacity-90 drop-shadow-xl"
         >
           <img src="/paper_boat.png" alt="Boat" className="w-full h-full object-contain" />
+        </motion.div>
+
+        {/* The Massive Hill Anchor */}
+        <motion.div 
+          style={{ y: hillY }}
+          className="absolute bottom-[-30vh] left-[-10vw] w-[120vw] h-[100vh] opacity-100 mix-blend-multiply drop-shadow-2xl"
+        >
+          <img src="/paper_tree_hill.png" alt="Hill" className="w-full h-full object-cover object-top" />
         </motion.div>
       </div>
 
