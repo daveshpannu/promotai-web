@@ -1,45 +1,74 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Impeccable Colors (Neo Kinpaku System) */
+  --color-lacquer-black: oklch(7% 0.006 95);
+  --color-lacquer-deep: oklch(4% 0.004 95);
+  --color-raised-lacquer: oklch(11% 0.006 95);
+  --color-graphite: oklch(15% 0.008 95);
+  --color-graphite-2: oklch(19% 0.008 95);
+
+  --color-champagne: oklch(91% 0 0);
+  --color-text-warm: oklch(88% 0 0);
+  --color-text-muted: oklch(72% 0 0);
+  --color-text-faint: oklch(62% 0 0);
+
+  --color-kinpaku-gold: oklch(84% 0.19 80.46);
+  --color-kinpaku-rich: oklch(77% 0.13 82);
+  --color-kinpaku-deep: oklch(61% 0.085 78);
+  --color-kinpaku-pale: oklch(86% 0.07 84);
+
+  --color-patina: oklch(70% 0.12 188);
+
+  --color-gold-hairline: oklch(78% 0 0 / 0.16);
+  --color-gold-hairline-strong: oklch(74% 0.09 82 / 0.6);
+
+  /* Emil Kowalski Animation Easing Curves */
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-lacquer-black: var(--color-lacquer-black);
+  --color-lacquer-deep: var(--color-lacquer-deep);
+  --color-raised-lacquer: var(--color-raised-lacquer);
+  --color-graphite: var(--color-graphite);
+  --color-graphite-2: var(--color-graphite-2);
+  
+  --color-champagne: var(--color-champagne);
+  --color-text-warm: var(--color-text-warm);
+  --color-text-muted: var(--color-text-muted);
+  --color-text-faint: var(--color-text-faint);
 
-  --animate-marquee: marquee 25s linear infinite;
-  --animate-gradient-x: gradient-x 4s ease infinite;
+  --color-kinpaku-gold: var(--color-kinpaku-gold);
+  --color-kinpaku-rich: var(--color-kinpaku-rich);
+  --color-kinpaku-deep: var(--color-kinpaku-deep);
+  --color-kinpaku-pale: var(--color-kinpaku-pale);
+  --color-patina: var(--color-patina);
 
-  @keyframes marquee {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-50%); }
-  }
+  --color-gold-hairline: var(--color-gold-hairline);
+  --color-gold-hairline-strong: var(--color-gold-hairline-strong);
 
-  @keyframes gradient-x {
-    0%, 100% {
-      background-size: 200% 200%;
-      background-position: left center;
-    }
-    50% {
-      background-size: 200% 200%;
-      background-position: right center;
-    }
-  }
-}
+  --font-display: var(--font-alumni-pinstripe), sans-serif;
+  --font-sans: var(--font-albert-sans), sans-serif;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --ease-out-strong: var(--ease-out-strong);
+  --ease-in-out-strong: var(--ease-in-out-strong);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-lacquer-black);
+  color: var(--color-text-warm);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
 }
+
+/* Emil Kowalski Button Physics */
+button {
+  transition: transform 160ms var(--ease-out-strong), background-color 160ms var(--ease-out-strong);
+}
+button:active {
+  transform: scale(0.97);
+}
+
+/* Remove default dark mode inversion, Impeccable is always dark mode */

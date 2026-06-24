@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useTheme } from '@/components/ThemeProvider';
+import { motion } from 'motion/react';
 import AnalyticsChart from '@/components/AnalyticsChart';
 
 interface Ad {
@@ -30,7 +30,6 @@ interface ChartData {
 export default function AdvertiserPortal() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const { theme, toggleTheme } = useTheme();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [ads, setAds] = useState<Ad[]>([]);
@@ -49,8 +48,6 @@ export default function AdvertiserPortal() {
     startDate: '',
     endDate: '',
   });
-
-  const isDark = theme === 'dark';
 
   // Auth redirect
   useEffect(() => {
@@ -200,76 +197,66 @@ export default function AdvertiserPortal() {
 
   if (status === 'loading' || status === 'unauthenticated') {
     return (
-      <div className={`min-h-screen flex items-center justify-center ${isDark ? 'bg-neutral-950 text-white' : 'bg-gray-50 text-gray-900'}`}>
-        <div className="animate-pulse text-lg">Loading...</div>
+      <div className="min-h-[100dvh] bg-lacquer-black flex items-center justify-center">
+        <div className="text-kinpaku-gold text-sm tracking-[0.2em] uppercase font-mono animate-pulse">Initializing Data Stream...</div>
       </div>
     );
   }
 
-  // ---- Theming classes ----
-  const bg = isDark ? 'bg-neutral-950' : 'bg-gray-50';
-  const text = isDark ? 'text-white' : 'text-gray-900';
-  const subtext = isDark ? 'text-neutral-400' : 'text-gray-500';
-  const cardBg = isDark ? 'bg-neutral-900' : 'bg-white';
-  const cardBorder = isDark ? 'border-neutral-800' : 'border-gray-200';
-  const inputBg = isDark ? 'bg-neutral-950' : 'bg-gray-50';
-  const inputBorder = isDark ? 'border-neutral-800' : 'border-gray-300';
-  const metricBg = isDark ? 'bg-neutral-950' : 'bg-gray-50';
-
   return (
-    <div className={`min-h-screen ${bg} ${text} p-8 font-sans`}>
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-[100dvh] bg-lacquer-black p-6 md:p-12 font-sans selection:bg-kinpaku-gold selection:text-lacquer-black">
+      <div className="max-w-[1400px] mx-auto">
         {/* Header */}
-        <header className="flex justify-between items-center mb-10">
+        <motion.header 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+          className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 border-b border-gold-hairline pb-8"
+        >
           <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">
-              PromotAI
+            <h1 className="font-display text-5xl md:text-6xl text-champagne leading-none tracking-tight">
+              Control Panel
             </h1>
-            <p className={`${subtext} mt-1`}>
-              Welcome, {session?.user?.name || session?.user?.email}
+            <p className="text-text-muted mt-2 text-sm">
+              Terminal: {session?.user?.name || session?.user?.email}
             </p>
           </div>
-          <div className="flex items-center gap-4">
-            {/* Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className={`p-2 rounded-lg border ${cardBorder} ${cardBg} transition-colors hover:opacity-80`}
-              title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
-            >
-              {isDark ? (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-              ) : (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-              )}
-            </button>
+          <div className="flex items-center gap-4 mt-6 md:mt-0">
             <button
               onClick={() => signOut()}
-              className={`text-sm font-medium px-4 py-2 rounded-lg border ${cardBorder} ${cardBg} transition-colors hover:opacity-80`}
+              className="text-xs uppercase tracking-widest font-mono border border-gold-hairline hover:border-kinpaku-gold text-text-muted hover:text-kinpaku-gold px-6 py-3 transition-colors bg-raised-lacquer"
             >
-              Sign Out
+              Terminate Session
             </button>
           </div>
-        </header>
+        </motion.header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left Column: Form + Preview */}
-          <div className="lg:col-span-1 space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* Left Column: Form + Preview (col-span-4) */}
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
+            className="lg:col-span-4 space-y-8"
+          >
             {/* Ad Form */}
-            <div className={`${cardBg} border ${cardBorder} rounded-2xl p-6 shadow-xl`}>
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold">
-                  {editingId ? 'Edit Campaign' : 'Create New Ad'}
+            <div className="bg-raised-lacquer border border-gold-hairline p-8 shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-1 h-full bg-kinpaku-gold" />
+              
+              <div className="flex justify-between items-center mb-8">
+                <h2 className="font-display text-3xl text-champagne">
+                  {editingId ? 'Edit Vector' : 'New Inject'}
                 </h2>
                 {editingId && (
-                  <button onClick={cancelEdit} className={`text-sm ${subtext} hover:opacity-80`}>Cancel</button>
+                  <button onClick={cancelEdit} className="text-xs font-mono tracking-wider text-patina hover:text-white uppercase">Abort</button>
                 )}
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Image Upload */}
                 <div>
-                  <label className={`block text-sm font-medium ${subtext} mb-1`}>Image</label>
-                  <div className={`border-2 border-dashed ${inputBorder} rounded-lg p-4 text-center transition-colors hover:border-emerald-500`}>
+                  <label className="block text-xs font-mono uppercase tracking-widest text-text-muted mb-2">Creative Asset</label>
+                  <div className="border border-dashed border-gold-hairline-strong bg-lacquer-black p-6 text-center transition-colors hover:border-kinpaku-gold cursor-pointer group">
                     <input
                       ref={fileInputRef}
                       type="file"
@@ -278,295 +265,226 @@ export default function AdvertiserPortal() {
                       className="hidden"
                       id="fileUpload"
                     />
-                    <label htmlFor="fileUpload" className="cursor-pointer">
-                      <div className={`text-sm ${subtext}`}>
-                        {uploading ? 'Uploading...' : 'Click to upload an image'}
+                    <label htmlFor="fileUpload" className="cursor-pointer flex flex-col items-center">
+                      <div className="text-sm text-text-warm group-hover:text-kinpaku-gold transition-colors">
+                        {uploading ? 'Transmitting...' : 'Upload Asset'}
                       </div>
-                      <div className={`text-xs ${subtext} mt-1`}>JPEG, PNG, GIF, WebP (max 5MB)</div>
+                      <div className="text-[10px] uppercase tracking-widest text-text-faint mt-2">Max 5MB</div>
                     </label>
                   </div>
-                  <div className="mt-2 text-xs text-center text-neutral-500">— or paste a URL —</div>
                   <input
                     type="text"
                     value={formData.imageUrl}
                     onChange={e => setFormData({ ...formData, imageUrl: e.target.value })}
-                    placeholder="https://example.com/image.jpg"
-                    className={`w-full ${inputBg} border ${inputBorder} rounded-lg px-4 py-2 mt-1 ${text} focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm`}
+                    placeholder="Or enter static URL..."
+                    className="w-full bg-lacquer-deep border border-gold-hairline px-4 py-3 mt-3 text-champagne focus:outline-none focus:border-kinpaku-gold text-sm transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className={`block text-sm font-medium ${subtext} mb-1`}>Ad Copy</label>
+                  <label className="block text-xs font-mono uppercase tracking-widest text-text-muted mb-2">Copy Payload</label>
                   <textarea
                     required
                     value={formData.quote}
                     onChange={e => setFormData({ ...formData, quote: e.target.value })}
-                    placeholder="Upgrade your workflow today."
-                    rows={2}
-                    className={`w-full ${inputBg} border ${inputBorder} rounded-lg px-4 py-2 ${text} focus:outline-none focus:ring-2 focus:ring-emerald-500`}
+                    placeholder="Enter short, punchy copy."
+                    rows={3}
+                    className="w-full bg-lacquer-deep border border-gold-hairline px-4 py-3 text-champagne focus:outline-none focus:border-kinpaku-gold text-sm transition-colors resize-none"
                   />
                 </div>
 
                 <div>
-                  <label className={`block text-sm font-medium ${subtext} mb-1`}>Destination Link</label>
+                  <label className="block text-xs font-mono uppercase tracking-widest text-text-muted mb-2">Target URL</label>
                   <input
                     type="url"
                     value={formData.link}
                     onChange={e => setFormData({ ...formData, link: e.target.value })}
-                    placeholder="https://yourwebsite.com"
-                    className={`w-full ${inputBg} border ${inputBorder} rounded-lg px-4 py-2 ${text} focus:outline-none focus:ring-2 focus:ring-emerald-500`}
+                    placeholder="https://..."
+                    className="w-full bg-lacquer-deep border border-gold-hairline px-4 py-3 text-champagne focus:outline-none focus:border-kinpaku-gold text-sm transition-colors"
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className={`block text-sm font-medium ${subtext} mb-1`}>Target</label>
+                    <label className="block text-xs font-mono uppercase tracking-widest text-text-muted mb-2">Environment</label>
                     <select
                       value={formData.targetChatbot}
                       onChange={e => setFormData({ ...formData, targetChatbot: e.target.value })}
-                      className={`w-full ${inputBg} border ${inputBorder} rounded-lg px-4 py-2 ${text} focus:outline-none focus:ring-2 focus:ring-emerald-500`}
+                      className="w-full bg-lacquer-deep border border-gold-hairline px-4 py-3 text-champagne focus:outline-none focus:border-kinpaku-gold text-sm transition-colors appearance-none"
                     >
-                      <option value="all">All Chatbots</option>
+                      <option value="all">Global (All)</option>
                       <option value="chatgpt">ChatGPT</option>
                       <option value="claude">Claude</option>
                       <option value="gemini">Gemini</option>
                     </select>
                   </div>
                   <div>
-                    <label className={`block text-sm font-medium ${subtext} mb-1`}>Priority</label>
+                    <label className="block text-xs font-mono uppercase tracking-widest text-text-muted mb-2">Weight</label>
                     <input
                       type="number"
                       min="1"
                       max="10"
                       value={formData.priority}
                       onChange={e => setFormData({ ...formData, priority: parseInt(e.target.value) || 1 })}
-                      className={`w-full ${inputBg} border ${inputBorder} rounded-lg px-4 py-2 ${text} focus:outline-none focus:ring-2 focus:ring-emerald-500`}
+                      className="w-full bg-lacquer-deep border border-gold-hairline px-4 py-3 text-champagne focus:outline-none focus:border-kinpaku-gold text-sm transition-colors"
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className={`block text-sm font-medium ${subtext} mb-1`}>Start Date</label>
+                    <label className="block text-xs font-mono uppercase tracking-widest text-text-muted mb-2">Start (UTC)</label>
                     <input
                       type="date"
                       value={formData.startDate}
                       onChange={e => setFormData({ ...formData, startDate: e.target.value })}
-                      className={`w-full ${inputBg} border ${inputBorder} rounded-lg px-4 py-2 ${text} focus:outline-none focus:ring-2 focus:ring-emerald-500`}
+                      className="w-full bg-lacquer-deep border border-gold-hairline px-4 py-3 text-champagne focus:outline-none focus:border-kinpaku-gold text-sm transition-colors"
                     />
                   </div>
                   <div>
-                    <label className={`block text-sm font-medium ${subtext} mb-1`}>End Date</label>
+                    <label className="block text-xs font-mono uppercase tracking-widest text-text-muted mb-2">End (UTC)</label>
                     <input
                       type="date"
                       value={formData.endDate}
                       onChange={e => setFormData({ ...formData, endDate: e.target.value })}
-                      className={`w-full ${inputBg} border ${inputBorder} rounded-lg px-4 py-2 ${text} focus:outline-none focus:ring-2 focus:ring-emerald-500`}
+                      className="w-full bg-lacquer-deep border border-gold-hairline px-4 py-3 text-champagne focus:outline-none focus:border-kinpaku-gold text-sm transition-colors"
                     />
                   </div>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-2.5 px-4 rounded-lg transition-colors mt-2"
+                  className="w-full bg-kinpaku-gold hover:bg-kinpaku-pale text-lacquer-deep font-medium py-4 px-4 uppercase tracking-widest text-xs mt-6 transition-all"
                 >
-                  {editingId ? 'Save Changes' : 'Launch Ad'}
+                  {editingId ? 'Commit Changes' : 'Deploy Payload'}
                 </button>
               </form>
             </div>
 
             {/* Ad Preview Simulator */}
             {(formData.imageUrl || formData.quote) && (
-              <div className={`${cardBg} border ${cardBorder} rounded-2xl p-6 shadow-xl`}>
-                <h3 className={`text-sm font-semibold ${subtext} uppercase tracking-wide mb-4`}>Live Preview</h3>
+              <div className="bg-raised-lacquer border border-gold-hairline p-8 shadow-2xl relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-1 bg-graphite" />
+                <h3 className="font-display text-2xl text-champagne mb-6">Render Preview</h3>
                 <div className="relative">
-                  {/* Simulated extension overlay */}
                   <div
                     style={{
-                      width: '300px',
-                      background: isDark ? 'rgba(30, 30, 35, 0.95)' : 'rgba(255, 255, 255, 0.95)',
-                      backdropFilter: 'blur(12px)',
-                      border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
-                      borderRadius: '16px',
-                      overflow: 'hidden',
-                      boxShadow: isDark
-                        ? '0 10px 30px rgba(0,0,0,0.5)'
-                        : '0 10px 30px rgba(0,0,0,0.1)',
-                      fontFamily: "'Inter', -apple-system, sans-serif",
-                      margin: '0 auto',
+                      background: 'rgba(21, 21, 21, 0.9)',
+                      border: '1px solid rgba(255, 255, 255, 0.05)',
+                      fontFamily: "'Albert Sans', sans-serif",
                     }}
+                    className="p-4 rounded-sm"
                   >
-                    {/* Header */}
-                    <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        padding: '8px 12px',
-                        background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)',
-                        borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}`,
-                        fontSize: '11px',
-                        fontWeight: 600,
-                        textTransform: 'uppercase' as const,
-                        letterSpacing: '0.5px',
-                        color: isDark ? '#9ca3af' : '#6b7280',
-                      }}
-                    >
-                      <span>Sponsored</span>
-                      <span style={{ cursor: 'pointer', opacity: 0.6 }}>✕</span>
+                    <div className="text-[10px] uppercase tracking-widest text-text-faint mb-3 border-b border-white/5 pb-2">
+                      Sponsored Injection
                     </div>
-                    {/* Content */}
-                    <div style={{ padding: '12px' }}>
-                      {formData.imageUrl && (
-                        <img
-                          src={formData.imageUrl}
-                          alt="Preview"
-                          style={{
-                            width: '100%',
-                            height: '140px',
-                            objectFit: 'cover',
-                            borderRadius: '8px',
-                            backgroundColor: isDark ? '#374151' : '#f3f4f6',
-                          }}
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).style.display = 'none';
-                          }}
-                        />
-                      )}
-                      {formData.quote && (
-                        <p
-                          style={{
-                            fontSize: '14px',
-                            lineHeight: 1.5,
-                            color: isDark ? '#f3f4f6' : '#374151',
-                            fontWeight: 500,
-                            margin: formData.imageUrl ? '12px 0 0' : '0',
-                          }}
-                        >
-                          {formData.quote}
-                        </p>
-                      )}
-                    </div>
+                    {formData.imageUrl && (
+                      <img
+                        src={formData.imageUrl}
+                        alt="Preview"
+                        className="w-full h-32 object-cover bg-lacquer-deep border border-white/5 mb-3"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).style.display = 'none';
+                        }}
+                      />
+                    )}
+                    {formData.quote && (
+                      <p className="text-sm text-champagne leading-relaxed">
+                        {formData.quote}
+                      </p>
+                    )}
                   </div>
-                  <p className={`text-xs ${subtext} text-center mt-3`}>
-                    This is how your ad will appear on AI chatbots
-                  </p>
                 </div>
               </div>
             )}
-          </div>
+          </motion.div>
 
-          {/* Right Column: Campaigns */}
-          <div className="lg:col-span-2">
-            <h2 className="text-xl font-semibold mb-6">Your Campaigns</h2>
-
+          {/* Right Column: Campaigns Bento Grid (col-span-8) */}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.23, 1, 0.32, 1] }}
+            className="lg:col-span-8"
+          >
             {loading ? (
-              <div className="animate-pulse space-y-4">
-                <div className={`h-48 ${cardBg} rounded-2xl`}></div>
-                <div className={`h-48 ${cardBg} rounded-2xl`}></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="h-64 bg-raised-lacquer border border-gold-hairline animate-pulse"></div>
+                <div className="h-64 bg-raised-lacquer border border-gold-hairline animate-pulse delay-75"></div>
               </div>
             ) : ads.length === 0 ? (
-              <div className={`${cardBg} border ${cardBorder} border-dashed rounded-2xl p-12 text-center`}>
-                <p className={subtext}>No campaigns yet. Create your first ad to get started.</p>
+              <div className="bg-raised-lacquer border border-gold-hairline border-dashed p-16 flex items-center justify-center min-h-[400px]">
+                <p className="text-text-muted font-display text-2xl text-center">No active payloads. Standing by.</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {ads.map((ad) => {
+                {ads.map((ad, i) => {
                   const ctr = ad.totalViews > 0 ? ((ad.totalClicks / ad.totalViews) * 100).toFixed(2) : '0.00';
+                  // Bento logic: First item spans 2 cols if there are odd number of items, or just standard 1 col.
+                  const isFeatured = i === 0 && ads.length % 2 !== 0;
 
                   return (
-                    <div key={ad.id} className={`${cardBg} border ${ad.isActive ? cardBorder : `${cardBorder} opacity-60`} rounded-2xl overflow-hidden shadow-lg group transition-all`}>
-                      {/* Image */}
-                      <div className="h-40 overflow-hidden relative">
-                        <img src={ad.imageUrl} alt="Ad" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                        <div className="absolute top-2 right-2 flex gap-2">
-                          <div className={`px-2 py-1 rounded text-xs font-medium border ${ad.isActive ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : `${isDark ? 'bg-neutral-800/80 text-neutral-400 border-neutral-700' : 'bg-gray-200 text-gray-500 border-gray-300'}`}`}>
-                            {ad.isActive ? 'Active' : 'Paused'}
+                    <motion.div 
+                      key={ad.id} 
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.1 * i, ease: [0.23, 1, 0.32, 1] }}
+                      className={`bg-raised-lacquer border ${ad.isActive ? 'border-gold-hairline hover:border-kinpaku-gold/50' : 'border-white/5 opacity-50'} flex flex-col group transition-colors ${isFeatured ? 'md:col-span-2 md:flex-row' : ''}`}
+                    >
+                      {/* Image Area */}
+                      <div className={`relative overflow-hidden bg-lacquer-deep ${isFeatured ? 'md:w-1/2 h-full min-h-[240px]' : 'h-48'}`}>
+                        <img src={ad.imageUrl} alt="Ad" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                        <div className="absolute top-4 right-4 flex flex-col gap-2 items-end">
+                          <div className={`px-2 py-1 text-[10px] uppercase font-mono tracking-widest border bg-lacquer-black/80 backdrop-blur ${ad.isActive ? 'text-kinpaku-gold border-kinpaku-gold/30' : 'text-text-faint border-white/10'}`}>
+                            {ad.isActive ? 'Live' : 'Halted'}
                           </div>
-                          <div className={`${isDark ? 'bg-black/60 border-white/10 text-white' : 'bg-white/80 border-gray-200 text-gray-700'} backdrop-blur-md px-2 py-1 rounded text-xs font-medium border`}>
-                            {ad.targetChatbot === 'all' ? 'All Bots' : ad.targetChatbot}
+                          <div className="px-2 py-1 text-[10px] uppercase font-mono tracking-widest border bg-lacquer-black/80 backdrop-blur text-champagne border-white/10">
+                            {ad.targetChatbot === 'all' ? 'Omni' : ad.targetChatbot}
                           </div>
-                          {ad.priority > 1 && (
-                            <div className="bg-amber-500/20 text-amber-400 border-amber-500/30 px-2 py-1 rounded text-xs font-medium border">
-                              P{ad.priority}
-                            </div>
-                          )}
                         </div>
                       </div>
 
-                      <div className={`p-5 border-b ${cardBorder}`}>
-                        <p className={`${isDark ? 'text-neutral-200' : 'text-gray-800'} font-medium leading-relaxed mb-2`}>
+                      {/* Content Area */}
+                      <div className={`flex-1 p-6 flex flex-col ${isFeatured ? 'md:w-1/2' : ''}`}>
+                        <p className="text-champagne font-medium leading-relaxed mb-4 flex-1">
                           &quot;{ad.quote}&quot;
                         </p>
-                        <a href={ad.link} target="_blank" rel="noreferrer" className="text-sm text-emerald-400 hover:text-emerald-300 truncate block mb-3">
-                          {ad.link || 'No link'}
-                        </a>
-
-                        {/* Schedule info */}
-                        {(ad.startDate || ad.endDate) && (
-                          <div className={`text-xs ${subtext} mb-3 flex gap-3`}>
-                            {ad.startDate && <span>📅 Start: {new Date(ad.startDate).toLocaleDateString()}</span>}
-                            {ad.endDate && <span>🏁 End: {new Date(ad.endDate).toLocaleDateString()}</span>}
+                        
+                        {/* Metrics Bento Row */}
+                        <div className="grid grid-cols-3 gap-px bg-gold-hairline mb-6 border border-gold-hairline">
+                          <div className="bg-raised-lacquer p-3 text-center">
+                            <div className="text-[10px] font-mono uppercase tracking-widest text-text-muted mb-1">Views</div>
+                            <div className="font-display text-2xl text-champagne">{ad.totalViews.toLocaleString()}</div>
                           </div>
-                        )}
-
-                        {/* Metrics */}
-                        <div className={`grid grid-cols-3 gap-2 py-3 ${metricBg} rounded-lg px-4 border ${cardBorder}`}>
-                          <div className="text-center">
-                            <div className={`text-xs ${subtext} mb-1`}>Views</div>
-                            <div className="font-semibold">{ad.totalViews.toLocaleString()}</div>
+                          <div className="bg-raised-lacquer p-3 text-center">
+                            <div className="text-[10px] font-mono uppercase tracking-widest text-text-muted mb-1">Clicks</div>
+                            <div className="font-display text-2xl text-champagne">{ad.totalClicks.toLocaleString()}</div>
                           </div>
-                          <div className={`text-center border-l ${cardBorder}`}>
-                            <div className={`text-xs ${subtext} mb-1`}>Clicks</div>
-                            <div className="font-semibold">{ad.totalClicks.toLocaleString()}</div>
-                          </div>
-                          <div className={`text-center border-l ${cardBorder}`}>
-                            <div className={`text-xs ${subtext} mb-1`}>CTR</div>
-                            <div className="font-semibold text-emerald-400">{ctr}%</div>
+                          <div className="bg-raised-lacquer p-3 text-center">
+                            <div className="text-[10px] font-mono uppercase tracking-widest text-text-muted mb-1">CTR</div>
+                            <div className="font-display text-2xl text-patina">{ctr}%</div>
                           </div>
                         </div>
 
-                        {/* Analytics Chart Toggle */}
-                        <button
-                          onClick={() => fetchAnalytics(ad.id)}
-                          className={`w-full mt-3 text-sm font-medium py-2 rounded-lg border ${cardBorder} ${isDark ? 'hover:bg-neutral-800' : 'hover:bg-gray-100'} transition-colors`}
-                        >
-                          {expandedAnalytics === ad.id ? 'Hide Analytics' : '📊 View Analytics'}
-                        </button>
-
-                        {/* Analytics Chart */}
-                        {expandedAnalytics === ad.id && (
-                          <div className={`mt-4 p-3 rounded-lg border ${cardBorder} ${metricBg}`}>
-                            {chartLoading ? (
-                              <div className="h-[200px] flex items-center justify-center text-sm opacity-50">
-                                Loading chart...
-                              </div>
-                            ) : (
-                              <AnalyticsChart data={chartData} theme={theme} />
-                            )}
+                        {/* Actions */}
+                        <div className="flex justify-between items-center pt-4 border-t border-gold-hairline">
+                          <button
+                            onClick={() => handleToggleStatus(ad)}
+                            className={`text-xs font-mono uppercase tracking-widest ${ad.isActive ? 'text-patina hover:text-white' : 'text-kinpaku-gold hover:text-kinpaku-pale'}`}
+                          >
+                            {ad.isActive ? 'Suspend' : 'Activate'}
+                          </button>
+                          <div className="flex gap-4">
+                            <button onClick={() => startEdit(ad)} className="text-xs font-mono uppercase tracking-widest text-text-muted hover:text-white">Edit</button>
+                            <button onClick={() => handleDelete(ad.id)} className="text-xs font-mono uppercase tracking-widest text-red-500 hover:text-red-400">Purge</button>
                           </div>
-                        )}
-                      </div>
-
-                      {/* Actions */}
-                      <div className={`${cardBg} px-5 py-3 flex justify-between items-center`}>
-                        <button
-                          onClick={() => handleToggleStatus(ad)}
-                          className={`text-sm font-medium ${ad.isActive ? 'text-amber-400 hover:text-amber-300' : 'text-emerald-400 hover:text-emerald-300'}`}
-                        >
-                          {ad.isActive ? 'Pause' : 'Resume'}
-                        </button>
-                        <div className="flex gap-4">
-                          <button onClick={() => startEdit(ad)} className={`text-sm font-medium ${subtext} hover:opacity-80`}>Edit</button>
-                          <button onClick={() => handleDelete(ad.id)} className="text-sm font-medium text-red-500 hover:text-red-400">Delete</button>
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
             )}
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>
