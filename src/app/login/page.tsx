@@ -38,101 +38,100 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-[100dvh] flex flex-col md:flex-row bg-paper-cream font-sans selection:bg-riso-blue selection:text-paper-cream overflow-x-hidden">
+    <div className="min-h-[100dvh] flex flex-col md:flex-row bg-[#fdfbf7] font-sans selection:bg-blue-100 selection:text-blue-900 overflow-hidden relative">
       
-      {/* Left Column - Graphic/Brand */}
-      <div className="w-full md:w-1/2 relative bg-riso-blue border-b-[4px] md:border-b-0 md:border-r-[4px] border-ink-black flex flex-col justify-between p-12 overflow-hidden">
-        {/* Halftone texture overlay */}
-        <div className="absolute inset-0 bg-halftone opacity-50 z-0"></div>
-        
-        {/* Floating Paper Cut Assets */}
+      {/* Background Floating Parallax Assets */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <motion.div 
-          animate={{ y: [-10, 10, -10], rotate: [-2, 2, -2] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[20%] right-[10%] w-[350px] mix-blend-multiply opacity-90 z-0"
-        >
-          <img src="/paper_boat.png" alt="Boat" className="w-full h-auto drop-shadow-xl" />
-        </motion.div>
-        
-        <motion.div 
-          animate={{ x: [-20, 20, -20] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-[-10%] left-[-10%] w-[500px] mix-blend-multiply opacity-60 z-0 filter grayscale"
+          animate={{ y: [-20, 20, -20], rotate: [-2, 2, -2] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[10%] left-[-10%] w-[500px] mix-blend-multiply opacity-60 filter grayscale"
         >
           <img src="/paper_cloud_1.png" alt="Cloud" className="w-full h-auto" />
         </motion.div>
-
+        
+        <motion.div 
+          animate={{ x: [-30, 30, -30], y: [-10, 10, -10] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-[-10%] right-[-5%] w-[600px] mix-blend-multiply opacity-80"
+        >
+          <img src="/paper_boat.png" alt="Boat" className="w-full h-auto drop-shadow-2xl" />
+        </motion.div>
+      </div>
+      
+      {/* Left Column - Graphic/Brand */}
+      <div className="w-full md:w-[45%] relative flex flex-col justify-between p-12 overflow-hidden z-10">
+        
         {/* Logo area */}
         <div className="relative z-10 flex items-center gap-3">
-          <div className="w-12 h-12 bg-paper-cream border-[3px] border-ink-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] flex items-center justify-center transform -rotate-6">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-ink-black)" strokeWidth="3" strokeLinecap="square" strokeLinejoin="miter"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" /><path d="M3 5v14a2 2 0 0 0 2 2h16v-5" /><path d="M18 12a2 2 0 0 0 0 4h4v-4Z" /></svg>
+          <div className="w-12 h-12 bg-gradient-to-tr from-blue-500 to-cyan-300 rounded-xl shadow-lg flex items-center justify-center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" /><path d="M3 5v14a2 2 0 0 0 2 2h16v-5" /><path d="M18 12a2 2 0 0 0 0 4h4v-4Z" /></svg>
           </div>
-          <span className="font-display font-black text-4xl tracking-tight text-paper-cream drop-shadow-md">PromotAI</span>
+          <span className="font-display font-medium text-3xl tracking-tight text-gray-900 drop-shadow-sm">PromotAI</span>
         </div>
 
-        <div className="relative z-10 max-w-sm mt-auto">
-          <h2 className="font-display font-black text-5xl text-paper-cream leading-[0.9] tracking-tighter uppercase mb-4 drop-shadow-md">
-            Navigate The Ad Sea
+        <div className="relative z-10 max-w-md mt-auto">
+          <h2 className="font-display font-medium text-6xl text-gray-900 leading-[1.05] tracking-tight mb-6 drop-shadow-md">
+            Navigate the <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 italic">Ad Sea</span>
           </h2>
-          <p className="font-medium text-lg text-paper-cream/90 bg-ink-black/30 p-4 border-l-[4px] border-paper-cream backdrop-blur-sm">
+          <p className="font-light text-lg text-gray-600 bg-white/60 backdrop-blur-xl p-6 rounded-3xl border border-white/50 shadow-xl shadow-blue-900/5">
             Log in to manage your campaigns, review analytics, and chart a course for your brand across major AI interfaces.
           </p>
         </div>
       </div>
 
       {/* Right Column - Form */}
-      <div className="w-full md:w-1/2 bg-paper-cream flex flex-col justify-center items-center p-6 lg:p-12 relative overflow-y-auto">
-        <div className="absolute top-8 left-8 text-8xl font-display font-black text-ink-black opacity-5 transform -rotate-12 pointer-events-none">
-          LOG IN
-        </div>
-
-        <div className="w-full max-w-md bg-paper-cream border-[4px] border-ink-black shadow-[12px_12px_0_0_rgba(0,0,0,1)] p-10 transform -rotate-1 relative z-10 hover:rotate-0 transition-transform">
+      <div className="w-full md:w-[55%] flex flex-col justify-center items-center p-6 lg:p-12 relative z-10">
+        
+        <div className="w-full max-w-md bg-white/70 backdrop-blur-3xl border border-white/60 shadow-2xl shadow-blue-900/10 rounded-[2.5rem] p-12 transition-all duration-500 hover:shadow-blue-900/20">
           <div className="mb-10 text-center">
-            <h1 className="font-display font-black text-5xl text-ink-black uppercase tracking-tighter drop-shadow-sm">Welcome Back</h1>
-            <p className="text-ink-muted font-bold mt-2">Enter your credentials to access the terminal.</p>
+            <h1 className="font-display font-medium text-4xl text-gray-900 tracking-tight mb-2">Welcome Back</h1>
+            <p className="text-gray-500 font-medium">Enter your credentials to access the terminal.</p>
           </div>
           
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
-              <div className="bg-riso-coral border-[3px] border-ink-black p-4 text-ink-black font-bold text-center shadow-[4px_4px_0_0_rgba(0,0,0,1)] transform rotate-1">
+              <div className="bg-red-50 text-red-600 border border-red-100 p-4 rounded-2xl text-center text-sm font-medium shadow-sm">
                 {error}
               </div>
             )}
             
-            <div>
-              <label className="block text-sm font-black uppercase tracking-widest text-ink-black mb-2">Email Address</label>
+            <div className="space-y-2">
+              <label className="block text-xs font-semibold text-gray-500 ml-2">EMAIL ADDRESS</label>
               <input
                 type="email"
                 required
                 value={formData.email}
                 onChange={e => setFormData({ ...formData, email: e.target.value })}
-                className="w-full bg-white border-[3px] border-ink-black px-4 py-4 text-ink-black font-bold focus:outline-none focus:ring-4 focus:ring-riso-blue/30 text-base transition-all shadow-inner"
+                className="w-full bg-white/80 border border-gray-200 rounded-2xl px-5 py-4 text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500/50 transition-all shadow-sm"
+                placeholder="you@company.com"
               />
             </div>
             
-            <div>
-              <label className="block text-sm font-black uppercase tracking-widest text-ink-black mb-2">Password</label>
+            <div className="space-y-2">
+              <label className="block text-xs font-semibold text-gray-500 ml-2">PASSWORD</label>
               <input
                 type="password"
                 required
                 value={formData.password}
                 onChange={e => setFormData({ ...formData, password: e.target.value })}
-                className="w-full bg-white border-[3px] border-ink-black px-4 py-4 text-ink-black font-bold focus:outline-none focus:ring-4 focus:ring-riso-blue/30 text-base transition-all shadow-inner"
+                className="w-full bg-white/80 border border-gray-200 rounded-2xl px-5 py-4 text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500/50 transition-all shadow-sm"
+                placeholder="••••••••"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="interactive-lift w-full bg-riso-blue border-[3px] border-ink-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] text-paper-cream font-display font-black py-5 px-4 uppercase tracking-widest text-xl mt-6 transition-all disabled:opacity-50"
+              className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-2xl font-semibold py-4 px-4 text-lg mt-8 shadow-xl shadow-blue-500/25 hover:shadow-2xl hover:shadow-blue-500/40 hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:hover:translate-y-0"
             >
               {loading ? 'Authenticating...' : 'Log In'}
             </button>
           </form>
 
-          <div className="mt-10 pt-8 border-t-[3px] border-ink-black text-center">
-            <p className="text-ink-muted font-bold">
-              No account? <Link href="/register" className="text-riso-blue hover:text-ink-black underline decoration-[3px] underline-offset-4 font-black transition-colors">Sign up</Link>
+          <div className="mt-10 text-center">
+            <p className="text-gray-500 text-sm font-medium">
+              No account? <Link href="/register" className="text-blue-600 hover:text-blue-700 font-semibold transition-colors">Sign up here</Link>
             </p>
           </div>
         </div>

@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { RevealStagger } from '@/components/Reveal';
 
 interface Ad {
   id: string;
@@ -45,11 +44,8 @@ export default function AdvertiserPortal() {
     endDate: '',
   });
 
-  // Auth redirect
   useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/login');
-    }
+    if (status === 'unauthenticated') router.push('/login');
   }, [status, router]);
 
   useEffect(() => {
@@ -84,7 +80,6 @@ export default function AdvertiserPortal() {
         alert(data.error || 'Upload failed');
       }
     } catch (err) {
-      console.error('Upload error', err);
       alert('Upload failed');
     } finally {
       setUploading(false);
@@ -175,17 +170,14 @@ export default function AdvertiserPortal() {
 
   if (status === 'loading' || status === 'unauthenticated') {
     return (
-      <div className="min-h-[100dvh] bg-paper-cream flex items-center justify-center">
-        <div className="text-ink-black font-display font-black text-2xl uppercase tracking-tighter animate-pulse drop-shadow-sm">Loading Canvas...</div>
+      <div className="min-h-[100dvh] bg-[#fdfbf7] flex items-center justify-center">
+        <div className="text-gray-400 font-display font-medium text-2xl animate-pulse">Loading Workspace...</div>
       </div>
     );
   }
 
   return (
-    <div ref={containerRef} className="min-h-[100dvh] bg-paper-cream p-6 md:p-12 font-sans selection:bg-riso-blue selection:text-paper-cream overflow-x-hidden relative">
-      
-      {/* Background Halftone Decorative Elements */}
-      <div className="fixed top-0 left-0 w-64 h-64 bg-halftone rounded-full opacity-20 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0"></div>
+    <div ref={containerRef} className="min-h-[100dvh] bg-[#fdfbf7] p-6 md:p-12 font-sans selection:bg-blue-100 selection:text-blue-900 overflow-x-hidden relative">
       
       {/* Floating Parallax Assets */}
       <motion.div 
@@ -208,20 +200,20 @@ export default function AdvertiserPortal() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-          className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 border-b-[4px] border-ink-black pb-8 bg-paper-cream/80 backdrop-blur-sm p-6 shadow-[8px_8px_0_0_rgba(0,0,0,1)] transform -rotate-1"
+          className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 pb-8 bg-white/60 backdrop-blur-xl border border-white/40 rounded-[2rem] p-8 shadow-xl shadow-blue-900/5"
         >
           <div>
-            <h1 className="font-display font-black text-5xl md:text-7xl text-ink-black leading-none tracking-tighter uppercase drop-shadow-sm transform rotate-1">
+            <h1 className="font-display font-medium text-4xl md:text-5xl text-gray-900 tracking-tight">
               Campaign Deck
             </h1>
-            <p className="text-ink-muted mt-2 font-bold bg-paper-dim border-2 border-ink-black px-3 py-1 inline-block transform -rotate-2 shadow-[2px_2px_0_0_rgba(0,0,0,1)]">
+            <p className="text-gray-500 mt-2 font-medium">
               Advertiser: {session?.user?.name || session?.user?.email}
             </p>
           </div>
           <div className="flex items-center gap-4 mt-6 md:mt-0">
             <button
               onClick={() => signOut()}
-              className="interactive-lift text-sm font-black uppercase tracking-widest bg-white border-[3px] border-ink-black text-ink-black px-6 py-3 shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:shadow-[6px_6px_0_0_rgba(0,0,0,1)]"
+              className="text-sm font-semibold bg-white border border-gray-200 text-gray-700 px-6 py-3 rounded-full shadow-sm hover:shadow-md hover:border-gray-300 hover:text-gray-900 transition-all"
             >
               Log Out
             </button>
@@ -237,23 +229,22 @@ export default function AdvertiserPortal() {
             className="lg:col-span-4 space-y-8"
           >
             {/* Ad Form */}
-            <div className="bg-riso-blue border-[4px] border-ink-black p-8 shadow-[12px_12px_0_0_rgba(0,0,0,1)] relative transform rotate-1 hover:-rotate-0 transition-transform">
-              <div className="absolute inset-0 bg-halftone pointer-events-none opacity-30 mix-blend-overlay"></div>
+            <div className="bg-white/80 backdrop-blur-xl border border-white/50 rounded-[2rem] p-8 shadow-2xl shadow-blue-900/10 relative transition-transform duration-500 hover:shadow-blue-900/15">
               
               <div className="flex justify-between items-center mb-8 relative z-10">
-                <h2 className="font-display font-black text-3xl text-paper-cream uppercase tracking-tight drop-shadow-md">
-                  {editingId ? 'Edit Draft' : 'New Blueprint'}
+                <h2 className="font-display font-medium text-2xl text-gray-900 tracking-tight">
+                  {editingId ? 'Edit Blueprint' : 'New Blueprint'}
                 </h2>
                 {editingId && (
-                  <button onClick={cancelEdit} className="text-xs font-black bg-paper-cream border-2 border-ink-black text-ink-black px-2 py-1 uppercase shadow-[2px_2px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 transition-transform">Abort</button>
+                  <button onClick={cancelEdit} className="text-xs font-semibold text-gray-500 hover:text-gray-800 transition-colors">Cancel</button>
                 )}
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+              <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
                 {/* Image Upload */}
-                <div className="bg-paper-cream border-[3px] border-ink-black p-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)] transform -rotate-1">
-                  <label className="block text-sm font-black uppercase tracking-widest text-ink-black mb-2">Visual Asset</label>
-                  <div className="border-[3px] border-dashed border-ink-muted bg-paper-dim p-6 text-center transition-all hover:bg-riso-blue/10 cursor-pointer group">
+                <div className="space-y-1">
+                  <label className="block text-xs font-semibold text-gray-500 ml-1">VISUAL ASSET</label>
+                  <div className="border border-dashed border-gray-300 rounded-2xl bg-gray-50/50 p-6 text-center transition-all hover:bg-gray-100 cursor-pointer group">
                     <input
                       ref={fileInputRef}
                       type="file"
@@ -263,8 +254,8 @@ export default function AdvertiserPortal() {
                       id="fileUpload"
                     />
                     <label htmlFor="fileUpload" className="cursor-pointer flex flex-col items-center">
-                      <div className="text-base font-bold text-ink-black group-hover:text-riso-blue transition-colors">
-                        {uploading ? 'Processing...' : 'Click to Upload'}
+                      <div className="text-sm font-medium text-gray-600 group-hover:text-blue-600 transition-colors">
+                        {uploading ? 'Processing...' : 'Upload Image'}
                       </div>
                     </label>
                   </div>
@@ -273,40 +264,40 @@ export default function AdvertiserPortal() {
                     value={formData.imageUrl}
                     onChange={e => setFormData({ ...formData, imageUrl: e.target.value })}
                     placeholder="Or enter static URL..."
-                    className="w-full bg-white border-2 border-ink-black px-4 py-3 mt-3 text-ink-black font-bold focus:outline-none focus:ring-4 focus:ring-riso-blue/30 text-sm transition-all"
+                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 mt-2 text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-all text-sm shadow-sm"
                   />
                 </div>
 
-                <div className="bg-paper-cream border-[3px] border-ink-black p-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)] transform rotate-1">
-                  <label className="block text-sm font-black uppercase tracking-widest text-ink-black mb-2">Punchy Copy</label>
+                <div className="space-y-1">
+                  <label className="block text-xs font-semibold text-gray-500 ml-1">PUNCHY COPY</label>
                   <textarea
                     required
                     value={formData.quote}
                     onChange={e => setFormData({ ...formData, quote: e.target.value })}
                     placeholder="Grab their attention..."
                     rows={3}
-                    className="w-full bg-white border-2 border-ink-black px-4 py-3 text-ink-black font-bold focus:outline-none focus:ring-4 focus:ring-riso-blue/30 text-sm transition-all resize-none"
+                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-all text-sm resize-none shadow-sm"
                   />
                 </div>
 
-                <div className="bg-paper-cream border-[3px] border-ink-black p-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)]">
-                  <label className="block text-sm font-black uppercase tracking-widest text-ink-black mb-2">Target URL</label>
+                <div className="space-y-1">
+                  <label className="block text-xs font-semibold text-gray-500 ml-1">TARGET URL</label>
                   <input
                     type="url"
                     value={formData.link}
                     onChange={e => setFormData({ ...formData, link: e.target.value })}
                     placeholder="https://..."
-                    className="w-full bg-white border-2 border-ink-black px-4 py-3 text-ink-black font-bold focus:outline-none focus:ring-4 focus:ring-riso-blue/30 text-sm transition-all"
+                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-all text-sm shadow-sm"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-paper-cream border-[3px] border-ink-black p-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)]">
-                    <label className="block text-sm font-black uppercase tracking-widest text-ink-black mb-2">Placement</label>
+                  <div className="space-y-1">
+                    <label className="block text-xs font-semibold text-gray-500 ml-1">PLACEMENT</label>
                     <select
                       value={formData.targetChatbot}
                       onChange={e => setFormData({ ...formData, targetChatbot: e.target.value })}
-                      className="w-full bg-white border-2 border-ink-black px-2 py-3 text-ink-black font-bold focus:outline-none focus:ring-4 focus:ring-riso-blue/30 text-sm transition-all appearance-none cursor-pointer"
+                      className="w-full bg-white border border-gray-200 rounded-xl px-3 py-3 text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-all text-sm appearance-none shadow-sm cursor-pointer"
                     >
                       <option value="all">Global (All)</option>
                       <option value="chatgpt">ChatGPT</option>
@@ -314,22 +305,22 @@ export default function AdvertiserPortal() {
                       <option value="gemini">Gemini</option>
                     </select>
                   </div>
-                  <div className="bg-paper-cream border-[3px] border-ink-black p-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)] transform -rotate-1">
-                    <label className="block text-sm font-black uppercase tracking-widest text-ink-black mb-2">Weight</label>
+                  <div className="space-y-1">
+                    <label className="block text-xs font-semibold text-gray-500 ml-1">WEIGHT</label>
                     <input
                       type="number"
                       min="1"
                       max="10"
                       value={formData.priority}
                       onChange={e => setFormData({ ...formData, priority: parseInt(e.target.value) || 1 })}
-                      className="w-full bg-white border-2 border-ink-black px-4 py-3 text-ink-black font-bold focus:outline-none focus:ring-4 focus:ring-riso-blue/30 text-sm transition-all"
+                      className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-all text-sm shadow-sm"
                     />
                   </div>
                 </div>
 
                 <button
                   type="submit"
-                  className="interactive-lift w-full bg-riso-coral border-[3px] border-ink-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] text-ink-black font-display font-black py-4 px-4 uppercase tracking-widest text-xl mt-6 transition-all"
+                  className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-xl font-semibold py-4 px-4 text-sm mt-6 shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 hover:-translate-y-0.5 transition-all"
                 >
                   {editingId ? 'Save Edits' : 'Publish Ad'}
                 </button>
@@ -338,24 +329,22 @@ export default function AdvertiserPortal() {
 
             {/* Ad Preview Simulator */}
             {(formData.imageUrl || formData.quote) && (
-              <div className="bg-paper-cream border-[4px] border-ink-black p-8 shadow-[12px_12px_0_0_rgba(0,0,0,1)] relative transform -rotate-2">
-                <h3 className="font-display font-black text-3xl text-ink-black mb-6 uppercase tracking-tighter">Preview</h3>
-                <div className="relative border-[3px] border-ink-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] p-4 bg-white transform rotate-1">
-                  <div className="text-xs font-black uppercase tracking-widest text-riso-blue mb-3 border-b-2 border-ink-black/10 pb-2">
-                    Sponsored Box
-                  </div>
+              <div className="bg-white/80 backdrop-blur-xl border border-white/50 rounded-[2rem] p-8 shadow-2xl shadow-blue-900/10 relative transition-transform duration-500 hover:shadow-blue-900/15">
+                <h3 className="font-display font-medium text-xl text-gray-900 mb-5 tracking-tight">Preview</h3>
+                <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
+                  <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-3">Sponsored</div>
                   {formData.imageUrl && (
                     <img
                       src={formData.imageUrl}
                       alt="Preview"
-                      className="w-full h-32 object-cover border-2 border-ink-black mb-3"
+                      className="w-full h-32 object-cover rounded-xl mb-3"
                       onError={(e) => {
                         (e.target as HTMLImageElement).style.display = 'none';
                       }}
                     />
                   )}
                   {formData.quote && (
-                    <p className="text-sm text-ink-black font-bold leading-relaxed">
+                    <p className="text-sm text-gray-800 font-medium leading-relaxed">
                       {formData.quote}
                     </p>
                   )}
@@ -373,18 +362,17 @@ export default function AdvertiserPortal() {
           >
             {loading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="h-72 bg-paper-dim border-[4px] border-ink-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] animate-pulse"></div>
-                <div className="h-72 bg-paper-dim border-[4px] border-ink-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] animate-pulse delay-75"></div>
+                <div className="h-72 bg-gray-100 rounded-[2rem] animate-pulse"></div>
+                <div className="h-72 bg-gray-100 rounded-[2rem] animate-pulse delay-75"></div>
               </div>
             ) : ads.length === 0 ? (
-              <div className="bg-paper-cream border-[4px] border-dashed border-ink-black p-16 flex items-center justify-center min-h-[400px] transform rotate-1 shadow-[8px_8px_0_0_rgba(0,0,0,1)]">
-                <p className="text-ink-muted font-display font-black text-3xl text-center uppercase">No active campaigns. Time to build.</p>
+              <div className="bg-white/50 backdrop-blur-md border border-dashed border-gray-300 rounded-[3rem] p-16 flex items-center justify-center min-h-[400px]">
+                <p className="text-gray-400 font-medium text-xl">No active campaigns. Time to build.</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {ads.map((ad, i) => {
                   const ctr = ad.totalViews > 0 ? ((ad.totalClicks / ad.totalViews) * 100).toFixed(2) : '0.00';
-                  // Bento logic: First item spans 2 cols if there are odd number of items.
                   const isFeatured = i === 0 && ads.length % 2 !== 0;
 
                   return (
@@ -393,51 +381,55 @@ export default function AdvertiserPortal() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5, delay: 0.1 * i, ease: [0.23, 1, 0.32, 1] }}
-                      className={`bg-white border-[4px] ${ad.isActive ? 'border-ink-black shadow-[8px_8px_0_0_rgba(0,0,0,1)]' : 'border-ink-muted shadow-none opacity-80'} flex flex-col group transition-all transform ${isFeatured ? 'md:col-span-2 md:flex-row' : ''} ${i % 2 === 0 ? 'hover:-rotate-1' : 'hover:rotate-1'}`}
+                      className={`bg-white/80 backdrop-blur-xl border border-white/50 rounded-[2rem] overflow-hidden flex flex-col group transition-all duration-300 shadow-xl ${ad.isActive ? 'shadow-blue-900/5 hover:shadow-blue-900/15 hover:-translate-y-1' : 'opacity-70 grayscale-[20%] shadow-sm'} ${isFeatured ? 'md:col-span-2 md:flex-row' : ''}`}
                     >
                       {/* Image Area */}
-                      <div className={`relative overflow-hidden border-b-[4px] ${isFeatured ? 'md:border-b-0 md:border-r-[4px] md:w-1/2 h-full min-h-[240px]' : 'h-48'} border-ink-black bg-white`}>
+                      <div className={`relative overflow-hidden ${isFeatured ? 'md:w-[45%] h-full min-h-[240px]' : 'h-48'} bg-gray-100`}>
                         <img src={ad.imageUrl} alt="Ad" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
-                        <div className="absolute top-4 right-4 flex flex-col gap-2 items-end">
-                          <div className={`px-3 py-1 text-xs uppercase font-black tracking-widest border-2 border-ink-black shadow-[2px_2px_0_0_rgba(0,0,0,1)] ${ad.isActive ? 'bg-riso-coral text-ink-black' : 'bg-paper-dim text-ink-muted'}`}>
+                        <div className="absolute top-4 right-4">
+                          <div className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-sm backdrop-blur-md ${ad.isActive ? 'bg-green-500/90 text-white' : 'bg-gray-800/80 text-white'}`}>
                             {ad.isActive ? 'Live' : 'Paused'}
                           </div>
                         </div>
                       </div>
 
                       {/* Content Area */}
-                      <div className={`flex-1 p-6 flex flex-col ${isFeatured ? 'md:w-1/2' : ''}`}>
-                        <p className="text-ink-black font-bold leading-relaxed mb-6 flex-1 text-lg bg-paper-cream p-3 border-[3px] border-ink-black transform rotate-1">
+                      <div className={`flex-1 p-6 flex flex-col ${isFeatured ? 'md:w-[55%]' : ''}`}>
+                        <p className="text-gray-900 font-medium leading-relaxed mb-6 flex-1 text-sm bg-gray-50/50 rounded-xl p-4 border border-gray-100">
                           &quot;{ad.quote}&quot;
                         </p>
                         
-                        {/* Metrics Bento Row */}
-                        <div className="grid grid-cols-3 gap-0 border-[3px] border-ink-black mb-6 shadow-[4px_4px_0_0_rgba(0,0,0,1)] transform -rotate-1">
-                          <div className="bg-white p-3 text-center border-r-[3px] border-ink-black">
-                            <div className="text-[10px] font-black uppercase tracking-widest text-ink-muted mb-1">Views</div>
-                            <div className="font-display font-black text-2xl text-ink-black">{ad.totalViews.toLocaleString()}</div>
+                        {/* Metrics Row */}
+                        <div className="grid grid-cols-3 gap-3 mb-6">
+                          <div className="bg-gray-50 rounded-xl p-3 text-center border border-gray-100">
+                            <div className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-1">Views</div>
+                            <div className="font-display font-medium text-xl text-gray-900">{ad.totalViews.toLocaleString()}</div>
                           </div>
-                          <div className="bg-white p-3 text-center border-r-[3px] border-ink-black">
-                            <div className="text-[10px] font-black uppercase tracking-widest text-ink-muted mb-1">Clicks</div>
-                            <div className="font-display font-black text-2xl text-ink-black">{ad.totalClicks.toLocaleString()}</div>
+                          <div className="bg-gray-50 rounded-xl p-3 text-center border border-gray-100">
+                            <div className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-1">Clicks</div>
+                            <div className="font-display font-medium text-xl text-gray-900">{ad.totalClicks.toLocaleString()}</div>
                           </div>
-                          <div className="bg-riso-blue p-3 text-center">
-                            <div className="text-[10px] font-black uppercase tracking-widest text-paper-cream mb-1">CTR</div>
-                            <div className="font-display font-black text-2xl text-paper-cream">{ctr}%</div>
+                          <div className="bg-blue-50 rounded-xl p-3 text-center border border-blue-100">
+                            <div className="text-[10px] font-semibold text-blue-400 uppercase tracking-wider mb-1">CTR</div>
+                            <div className="font-display font-medium text-xl text-blue-600">{ctr}%</div>
                           </div>
                         </div>
 
                         {/* Actions */}
-                        <div className="flex justify-between items-center pt-4 border-t-[3px] border-ink-black border-dashed">
+                        <div className="flex justify-between items-center pt-4 border-t border-gray-100">
                           <button
                             onClick={() => handleToggleStatus(ad)}
-                            className={`interactive-lift px-4 py-2 border-2 border-ink-black shadow-[2px_2px_0_0_rgba(0,0,0,1)] text-xs font-black uppercase tracking-widest ${ad.isActive ? 'bg-paper-dim text-ink-black hover:bg-paper-cream' : 'bg-riso-coral text-ink-black hover:bg-[#ff8a66]'}`}
+                            className={`px-4 py-2 rounded-full text-xs font-semibold transition-colors ${ad.isActive ? 'bg-gray-100 text-gray-600 hover:bg-gray-200' : 'bg-green-500 text-white hover:bg-green-600 shadow-md shadow-green-500/20'}`}
                           >
                             {ad.isActive ? 'Pause' : 'Activate'}
                           </button>
-                          <div className="flex gap-4">
-                            <button onClick={() => startEdit(ad)} className="text-sm font-black uppercase tracking-widest text-ink-muted hover:text-riso-blue transition-colors underline decoration-2 underline-offset-4 bg-paper-cream px-2 border-2 border-ink-black transform rotate-2">Edit</button>
-                            <button onClick={() => handleDelete(ad.id)} className="text-sm font-black uppercase tracking-widest text-paper-cream hover:text-white transition-colors underline decoration-2 underline-offset-4 bg-ink-black px-2 border-2 border-ink-black transform -rotate-1">Delete</button>
+                          <div className="flex gap-2">
+                            <button onClick={() => startEdit(ad)} className="p-2 text-gray-400 hover:text-blue-500 hover:bg-blue-50 rounded-full transition-all">
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                            </button>
+                            <button onClick={() => handleDelete(ad.id)} className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-all">
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                            </button>
                           </div>
                         </div>
                       </div>
