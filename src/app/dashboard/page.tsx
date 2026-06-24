@@ -187,13 +187,6 @@ export default function AdvertiserPortal() {
         <img src="/paper_cloud_1.png" alt="Cloud" className="w-full h-auto filter grayscale" />
       </motion.div>
 
-      <motion.div 
-        style={{ y: buildingY }}
-        className="fixed bottom-[-10%] left-[-10%] w-[800px] mix-blend-multiply opacity-80 pointer-events-none z-0"
-      >
-        <img src="/paper_buildings.png" alt="Buildings" className="w-full h-auto drop-shadow-md" />
-      </motion.div>
-
       <div className="max-w-[1400px] mx-auto relative z-10">
         {/* Header */}
         <motion.header 

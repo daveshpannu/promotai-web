@@ -17,9 +17,6 @@ export default function MarketingPage() {
   
   const cloud2Y = useTransform(scrollYProgress, [0, 1], [0, -400]);
   const cloud2X = useTransform(scrollYProgress, [0, 1], [0, 300]);
-  
-  const buildingY = useTransform(scrollYProgress, [0, 1], [150, -100]);
-  const buildingForegroundY = useTransform(scrollYProgress, [0, 1], [400, -300]);
 
   return (
     <div ref={containerRef} className="min-h-[200vh] bg-[#fdfbf7] font-sans overflow-x-hidden selection:bg-blue-100 selection:text-blue-900 relative text-gray-800">
@@ -44,22 +41,6 @@ export default function MarketingPage() {
           className="absolute top-[25%] right-[5%] w-[700px] h-[450px] opacity-60 mix-blend-multiply"
         >
           <img src="/paper_cloud_1.png" alt="Cloud" className="w-full h-full object-contain" />
-        </motion.div>
-
-        {/* The Deep Background Buildings (Cityscape) */}
-        <motion.div 
-          style={{ y: buildingY }}
-          className="absolute bottom-[-15vh] left-[-5vw] w-[110vw] h-[80vh] opacity-80 mix-blend-multiply drop-shadow-lg"
-        >
-          <img src="/paper_buildings.png" alt="Buildings" className="w-full h-full object-cover object-top" />
-        </motion.div>
-
-        {/* The Foreground Building (Tower) - Moves Faster */}
-        <motion.div 
-          style={{ y: buildingForegroundY }}
-          className="absolute bottom-[-30vh] right-[5vw] w-[50vw] h-[100vh] opacity-100 mix-blend-multiply drop-shadow-2xl"
-        >
-          <img src="/paper_buildings_foreground.png" alt="Tower" className="w-full h-full object-contain object-bottom" />
         </motion.div>
       </div>
 

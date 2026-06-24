@@ -40,22 +40,14 @@ export default function LoginPage() {
   return (
     <div className="min-h-[100dvh] flex flex-col md:flex-row bg-[#fdfbf7] font-sans selection:bg-blue-100 selection:text-blue-900 overflow-hidden relative">
       
-      {/* Background Floating Parallax Assets */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      {/* --- PARALLAX BACKGROUND --- */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 bg-halftone-sky">
         <motion.div 
           animate={{ y: [-20, 20, -20], rotate: [-2, 2, -2] }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-[10%] left-[-10%] w-[500px] mix-blend-multiply opacity-60 filter grayscale"
         >
           <img src="/paper_cloud_1.png" alt="Cloud" className="w-full h-auto" />
-        </motion.div>
-        
-        <motion.div 
-          animate={{ x: [-30, 30, -30], y: [-10, 10, -10] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-[-10%] right-[-5%] w-[600px] mix-blend-multiply opacity-80"
-        >
-          <img src="/paper_boat.png" alt="Boat" className="w-full h-auto drop-shadow-2xl" />
         </motion.div>
       </div>
       

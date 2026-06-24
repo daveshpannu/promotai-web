@@ -39,22 +39,14 @@ export default function RegisterPage() {
   return (
     <div className="min-h-[100dvh] flex flex-col md:flex-row bg-[#fdfbf7] font-sans selection:bg-cyan-100 selection:text-cyan-900 overflow-hidden relative">
       
-      {/* Background Floating Parallax Assets */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      {/* --- PARALLAX BACKGROUND --- */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 bg-halftone-sky">
         <motion.div 
           animate={{ y: [-15, 15, -15], rotate: [-2, 2, -2] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-[15%] right-[-5%] w-[450px] mix-blend-multiply opacity-60"
         >
           <img src="/paper_cloud_1.png" alt="Cloud" className="w-full h-auto filter grayscale" />
-        </motion.div>
-        
-        <motion.div 
-          animate={{ x: [20, -20, 20], y: [-30, 30, -30] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-[-15%] left-[-10%] w-[700px] mix-blend-multiply opacity-80 rotate-12"
-        >
-          <img src="/paper_plane.png" alt="Plane" className="w-full h-auto drop-shadow-2xl" />
         </motion.div>
       </div>
       
