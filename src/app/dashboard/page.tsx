@@ -28,7 +28,7 @@ export default function AdvertiserPortal() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
   const cloudY = useTransform(scrollYProgress, [0, 1], [0, -300]);
-  const boatY = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const buildingY = useTransform(scrollYProgress, [0, 1], [300, -200]);
 
   const [ads, setAds] = useState<Ad[]>([]);
   const [loading, setLoading] = useState(true);
@@ -188,10 +188,10 @@ export default function AdvertiserPortal() {
       </motion.div>
 
       <motion.div 
-        style={{ y: boatY }}
-        className="fixed bottom-[20%] left-[-5%] w-[300px] mix-blend-multiply opacity-80 pointer-events-none z-0"
+        style={{ y: buildingY }}
+        className="fixed bottom-[-10%] left-[-10%] w-[800px] mix-blend-multiply opacity-80 pointer-events-none z-0"
       >
-        <img src="/paper_boat.png" alt="Boat" className="w-full h-auto drop-shadow-md" />
+        <img src="/paper_buildings.png" alt="Buildings" className="w-full h-auto drop-shadow-md" />
       </motion.div>
 
       <div className="max-w-[1400px] mx-auto relative z-10">
