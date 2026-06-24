@@ -18,13 +18,8 @@ export default function MarketingPage() {
   const cloud2Y = useTransform(scrollYProgress, [0, 1], [0, -400]);
   const cloud2X = useTransform(scrollYProgress, [0, 1], [0, 300]);
   
-  const planeY = useTransform(scrollYProgress, [0, 1], [1000, -2000]);
-  const planeX = useTransform(scrollYProgress, [0, 1], [-1000, 2000]);
-
-  const boatY = useTransform(scrollYProgress, [0, 1], [400, -800]);
-  const boatX = useTransform(scrollYProgress, [0, 1], [-200, 200]);
-
-  const hillY = useTransform(scrollYProgress, [0, 1], [300, -200]);
+  const buildingY = useTransform(scrollYProgress, [0, 1], [150, -100]);
+  const buildingForegroundY = useTransform(scrollYProgress, [0, 1], [400, -300]);
 
   return (
     <div ref={containerRef} className="min-h-[200vh] bg-[#fdfbf7] font-sans overflow-x-hidden selection:bg-blue-100 selection:text-blue-900 relative text-gray-800">
@@ -32,6 +27,9 @@ export default function MarketingPage() {
       {/* --- EPIC PARALLAX PAPER CUT LAYERS --- */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         
+        {/* Light Halftone Sky Texture */}
+        <div className="absolute inset-0 bg-halftone-sky"></div>
+
         {/* Deep Background Clouds */}
         <motion.div 
           style={{ y: cloud2Y, x: cloud2X }}
@@ -48,28 +46,20 @@ export default function MarketingPage() {
           <img src="/paper_cloud_1.png" alt="Cloud" className="w-full h-full object-contain" />
         </motion.div>
 
-        {/* The Airplane (Massive & Fast) */}
+        {/* The Deep Background Buildings (Cityscape) */}
         <motion.div 
-          style={{ y: planeY, x: planeX }}
-          className="absolute top-[80%] left-[-20%] w-[800px] h-[800px] mix-blend-multiply transform rotate-[60deg] opacity-90 drop-shadow-2xl"
+          style={{ y: buildingY }}
+          className="absolute bottom-[-15vh] left-[-5vw] w-[110vw] h-[80vh] opacity-80 mix-blend-multiply drop-shadow-lg"
         >
-          <img src="/paper_plane.png" alt="Airplane" className="w-full h-full object-contain" />
+          <img src="/paper_buildings.png" alt="Buildings" className="w-full h-full object-cover object-top" />
         </motion.div>
 
-        {/* The Boat (Large) */}
+        {/* The Foreground Building (Tower) - Moves Faster */}
         <motion.div 
-          style={{ y: boatY, x: boatX }}
-          className="absolute bottom-[-10%] right-[5%] w-[600px] h-[600px] mix-blend-multiply opacity-90 drop-shadow-xl"
+          style={{ y: buildingForegroundY }}
+          className="absolute bottom-[-30vh] right-[5vw] w-[50vw] h-[100vh] opacity-100 mix-blend-multiply drop-shadow-2xl"
         >
-          <img src="/paper_boat.png" alt="Boat" className="w-full h-full object-contain" />
-        </motion.div>
-
-        {/* The Massive Hill Anchor */}
-        <motion.div 
-          style={{ y: hillY }}
-          className="absolute bottom-[-30vh] left-[-10vw] w-[120vw] h-[100vh] opacity-100 mix-blend-multiply drop-shadow-2xl"
-        >
-          <img src="/paper_tree_hill.png" alt="Hill" className="w-full h-full object-cover object-top" />
+          <img src="/paper_buildings_foreground.png" alt="Tower" className="w-full h-full object-contain object-bottom" />
         </motion.div>
       </div>
 
