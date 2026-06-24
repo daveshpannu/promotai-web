@@ -32,20 +32,20 @@ export default function MarketingPage() {
       {/* --- EPIC PARALLAX PAPER CUT LAYERS --- */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         
-        {/* Deep Background Clouds (Massive) */}
+        {/* Deep Background Clouds */}
         <motion.div 
           style={{ y: cloud2Y, x: cloud2X }}
-          className="absolute top-[-10%] left-[-20%] w-[120vw] h-[100vh] opacity-30 mix-blend-multiply"
+          className="absolute top-[5%] left-[5%] w-[500px] h-[350px] opacity-30 mix-blend-multiply"
         >
-          <img src="/paper_cloud_1.png" alt="Cloud" className="w-full h-full object-cover filter grayscale opacity-60" />
+          <img src="/paper_cloud_1.png" alt="Cloud" className="w-full h-full object-contain filter grayscale opacity-60" />
         </motion.div>
 
-        {/* Foreground Clouds (Massive) */}
+        {/* Foreground Clouds */}
         <motion.div 
           style={{ y: cloud1Y, x: cloud1X }}
-          className="absolute top-[20%] right-[-30%] w-[150vw] h-[120vh] opacity-60 mix-blend-multiply"
+          className="absolute top-[25%] right-[5%] w-[700px] h-[450px] opacity-60 mix-blend-multiply"
         >
-          <img src="/paper_cloud_1.png" alt="Cloud" className="w-full h-full object-cover" />
+          <img src="/paper_cloud_1.png" alt="Cloud" className="w-full h-full object-contain" />
         </motion.div>
 
         {/* The Airplane (Massive & Fast) */}
