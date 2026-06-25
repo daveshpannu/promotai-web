@@ -1,19 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
-// Supabase client will be initialized inside the handler
-
 export async function POST(req: NextRequest) {
   try {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-    
-    if (!supabaseUrl || !supabaseKey) {
-      return NextResponse.json({ error: "Storage configuration missing" }, { status: 500 });
-    }
-    
-    const supabase = createClient(supabaseUrl, supabaseKey);
-
     const formData = await req.formData();
     const file = formData.get("file") as File;
 
@@ -39,30 +28,41 @@ export async function POST(req: NextRequest) {
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
-    const sanitizedName = file.name.replace(/[^a-zA-Z0-9._-]/g, "-");
-    const filename = `${Date.now()}-${sanitizedName}`;
+    const base64Url = `data:${file.type};base64,${buffer.toString("base64")}`;
 
-    // Upload to Supabase Storage bucket 'ad-images'
-    const { data, error } = await supabase.storage
-      .from("ad-images")
-      .upload(filename, buffer, {
-        contentType: file.type,
-        upsert: false,
-      });
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\s+/g, "");
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.replace(/\s+/g, "");
+    
+    if (supabaseUrl && supabaseKey && supabaseUrl.startsWith("http")) {
+      try {
+        const supabase = createClient(supabaseUrl, supabaseKey);
+        const sanitizedName = file.name.replace(/[^a-zA-Z0-9._-]/g, "-");
+        const filename = `${Date.now()}-${sanitizedName}`;
 
-    if (error) {
-      console.error("Supabase storage error:", error);
-      return NextResponse.json({ error: "Failed to save image to cloud storage." }, { status: 500 });
+        const { data, error } = await supabase.storage
+          .from("ad-images")
+          .upload(filename, buffer, {
+            contentType: file.type,
+            upsert: false,
+          });
+
+        if (!error) {
+          const { data: publicUrlData } = supabase.storage
+            .from("ad-images")
+            .getPublicUrl(filename);
+          return NextResponse.json({ url: publicUrlData.publicUrl });
+        } else {
+          console.warn("Supabase storage upload returned error, falling back to base64:", error.message);
+        }
+      } catch (err) {
+        console.warn("Supabase storage client exception, falling back to base64:", err);
+      }
     }
 
-    // Get the public URL for the uploaded image
-    const { data: publicUrlData } = supabase.storage
-      .from("ad-images")
-      .getPublicUrl(filename);
-
-    return NextResponse.json({ url: publicUrlData.publicUrl });
+    // Reliable fallback to base64 data URI
+    return NextResponse.json({ url: base64Url });
   } catch (error) {
-    console.error("Upload error:", error);
+    console.error("Upload handler exception:", error);
     return NextResponse.json(
       { error: "Failed to upload file" },
       { status: 500 }
