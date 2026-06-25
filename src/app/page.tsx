@@ -56,13 +56,19 @@ export default function MarketingPage() {
               <span className="font-display font-bold text-xl tracking-tight text-gray-900 mt-0.5">PromotAI</span>
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
+              <a 
+                href="#" 
+                className="inline-flex items-center gap-2 text-sm font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200 px-5 py-2.5 rounded-full transition-all duration-300"
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                Download
+              </a>
               <Link 
                 href="/register" 
-                className="inline-flex items-center gap-2 text-sm font-semibold bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-6 py-2.5 rounded-full shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
+                className="inline-flex items-center gap-2 text-sm font-bold bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-6 py-2.5 rounded-full shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                Download
+                Start Publishing
               </Link>
             </div>
           </nav>
