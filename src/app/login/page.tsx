@@ -38,16 +38,21 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-[100dvh] flex flex-col md:flex-row bg-[#e8e8e6] font-sans selection:bg-blue-100 selection:text-blue-900 overflow-hidden relative">
+    <div className="min-h-[100dvh] flex flex-col md:flex-row bg-[#fdfbf7] font-sans selection:bg-blue-100 selection:text-blue-900 overflow-hidden relative">
       
-      {/* Left Column - Graphic/Brand with Uploaded Image Background */}
+      {/* --- PARALLAX BACKGROUND --- */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 bg-halftone-sky">
+        <motion.div 
+          animate={{ y: [-20, 20, -20], rotate: [-2, 2, -2] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[10%] left-[-10%] w-[500px] mix-blend-multiply opacity-60 filter grayscale"
+        >
+          <img src="/paper_cloud_1.png" alt="Cloud" className="w-full h-auto" />
+        </motion.div>
+      </div>
+      
+      {/* Left Column - Graphic/Brand */}
       <div className="w-full md:w-[45%] relative flex flex-col justify-between p-12 overflow-hidden z-10">
-        
-        {/* Background Tides Illustration */}
-        <div className="absolute inset-0 z-0">
-          <img src="/login_left_tides.jpg" alt="Tides" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-white/20 to-transparent"></div>
-        </div>
 
         {/* Logo area */}
         <div className="relative z-10 flex items-center gap-3">
