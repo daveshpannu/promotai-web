@@ -1,11 +1,19 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'motion/react';
 
 export default function MarketingPage() {
   const containerRef = useRef(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.5; // Slow motion playback
+    }
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -188,6 +196,7 @@ export default function MarketingPage() {
           {/* Background Video Layer */}
           <div className="absolute inset-0 z-0 pointer-events-none">
             <video
+              ref={videoRef}
               autoPlay
               loop
               muted
