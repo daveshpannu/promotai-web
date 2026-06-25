@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -11,6 +11,13 @@ export default function LoginPage() {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.5; // Slow motion playback
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,10 +45,10 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-[100dvh] flex flex-col md:flex-row bg-[#fdfbf7] font-sans selection:bg-blue-100 selection:text-blue-900 overflow-hidden relative">
+    <div className="min-h-[100dvh] flex flex-col md:flex-row bg-[#e8e8e6] font-sans selection:bg-blue-100 selection:text-blue-900 overflow-hidden relative">
       
-      {/* --- PARALLAX BACKGROUND --- */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 bg-halftone-sky">
+      {/* --- BACKGROUND WITH SLOW-MO VIDEO AT BOTTOM --- */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <motion.div 
           animate={{ y: [-20, 20, -20], rotate: [-2, 2, -2] }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
@@ -49,6 +56,21 @@ export default function LoginPage() {
         >
           <img src="/paper_cloud_1.png" alt="Cloud" className="w-full h-auto" />
         </motion.div>
+
+        {/* Looping Slow Motion Video at Bottom */}
+        <div className="absolute bottom-0 inset-x-0 h-[45vh] overflow-hidden opacity-90 mix-blend-multiply">
+          <video
+            ref={videoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+          >
+            <source src="/bg_video.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#e8e8e6] via-transparent to-[#e8e8e6]"></div>
+        </div>
       </div>
       
       {/* Left Column - Graphic/Brand */}

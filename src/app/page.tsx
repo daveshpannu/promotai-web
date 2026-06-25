@@ -1,19 +1,11 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'motion/react';
 
 export default function MarketingPage() {
   const containerRef = useRef(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.5; // Slow motion playback
-    }
-  }, []);
-
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -191,24 +183,9 @@ export default function MarketingPage() {
 
         </section>
 
-        {/* CTA Section & Footer with Looping Background Video */}
-        <footer className="pt-32 pb-16 relative overflow-hidden rounded-t-[4rem]">
-          {/* Background Video Layer */}
-          <div className="absolute inset-0 z-0 pointer-events-none">
-            <video
-              ref={videoRef}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-full object-cover opacity-80 mix-blend-multiply"
-            >
-              <source src="/bg_video.mp4" type="video/mp4" />
-            </video>
-            <div className="absolute inset-0 bg-gradient-to-t from-[#fdfbf7] via-transparent to-[#fdfbf7]/80"></div>
-          </div>
-
-          <div className="max-w-3xl mx-auto px-6 text-center mb-24 relative z-10 bg-white/60 backdrop-blur-3xl border border-white/80 rounded-[3rem] p-16 shadow-2xl shadow-blue-900/10">
+        {/* CTA Section & Footer */}
+        <footer className="pt-32 pb-16 relative">
+          <div className="max-w-3xl mx-auto px-6 text-center mb-24 relative z-10 bg-white/40 backdrop-blur-3xl border border-white/60 rounded-[3rem] p-16 shadow-2xl shadow-blue-900/5">
             <h2 className="text-4xl md:text-5xl font-display font-medium mb-6 text-gray-900 tracking-tight">Ready to reach the AI generation?</h2>
             <p className="text-lg text-gray-600 mb-10 font-light">Join hundreds of forward-thinking brands advertising natively inside LLM chats.</p>
             <Link href="/register" className="inline-flex px-10 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-full font-semibold text-lg shadow-xl shadow-blue-500/25 hover:shadow-2xl hover:shadow-blue-500/40 hover:-translate-y-1 transition-all duration-300">
