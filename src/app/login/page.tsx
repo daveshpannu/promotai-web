@@ -40,15 +40,15 @@ export default function LoginPage() {
   return (
     <div className="min-h-[100dvh] flex flex-col md:flex-row bg-[#e8e8e6] font-sans selection:bg-blue-100 selection:text-blue-900 overflow-hidden relative">
       
-      {/* --- BACKGROUND WITH PAPER CUT OCEAN IMAGE --- */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <img src="/paper_ocean_bg.jpg" alt="Ocean Background" className="w-full h-full object-cover opacity-85" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#e8e8e6]/80 via-transparent to-[#e8e8e6]/60"></div>
-      </div>
-      
-      {/* Left Column - Graphic/Brand */}
+      {/* Left Column - Graphic/Brand with Uploaded Image Background */}
       <div className="w-full md:w-[45%] relative flex flex-col justify-between p-12 overflow-hidden z-10">
         
+        {/* Background Tides Illustration */}
+        <div className="absolute inset-0 z-0">
+          <img src="/login_left_tides.jpg" alt="Tides" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-white/20 to-transparent"></div>
+        </div>
+
         {/* Logo area */}
         <div className="relative z-10 flex items-center gap-3">
           <div className="w-12 h-12 bg-gradient-to-tr from-blue-500 to-cyan-300 rounded-xl shadow-lg flex items-center justify-center">
