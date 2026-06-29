@@ -40,8 +40,8 @@
 }
 
 body {
-  background-color: var(--color-paper-cream);
-  color: var(--color-ink-black);
+  background-color: #020204;
+  color: #ffffff;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
