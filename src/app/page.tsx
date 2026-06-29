@@ -129,8 +129,18 @@ export default function MarketingPage() {
         <section id="features" className="py-32 max-w-6xl mx-auto px-6 relative space-y-40">
           
           {/* Block 1 */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="bg-white/70 backdrop-blur-3xl border border-white/60 rounded-[2.5rem] p-8 shadow-2xl shadow-blue-900/10 relative w-full h-[420px] flex flex-col justify-center overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:shadow-blue-900/20 cursor-pointer group">
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ type: "spring", stiffness: 200, damping: 25 }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
+          >
+            <motion.div 
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="bg-white/70 backdrop-blur-3xl border border-white/60 rounded-[2.5rem] p-8 shadow-2xl shadow-blue-900/10 relative w-full h-[420px] flex flex-col justify-center overflow-hidden cursor-pointer group"
+            >
               <div className="w-full bg-white/95 backdrop-blur-2xl rounded-2xl p-6 shadow-xl shadow-blue-950/5 border border-blue-50/80 relative z-10 transition-transform duration-300 group-hover:-translate-y-1">
                 <div className="flex justify-between items-center mb-5 pb-3 border-b border-gray-100">
                   <div className="flex items-center gap-2">
@@ -146,7 +156,11 @@ export default function MarketingPage() {
                 </p>
 
                 {/* Simulated Native Ad Card */}
-                <div className="bg-gradient-to-r from-blue-50/80 via-cyan-50/50 to-blue-50/80 rounded-xl p-4 border border-blue-100/80 flex items-center justify-between shadow-sm transition-all duration-300 hover:border-blue-300 hover:shadow-md">
+                <motion.div 
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.99 }}
+                  className="bg-gradient-to-r from-blue-50/80 via-cyan-50/50 to-blue-50/80 rounded-xl p-4 border border-blue-100/80 flex items-center justify-between shadow-sm hover:border-blue-300 hover:shadow-md transition-colors"
+                >
                   <div className="flex items-center gap-3.5">
                     <div className="w-10 h-10 rounded-lg bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-blue-500/20">
                       P
@@ -156,12 +170,16 @@ export default function MarketingPage() {
                       <p className="text-xs text-gray-500">Reach millions inside AI chats</p>
                     </div>
                   </div>
-                  <span className="px-3.5 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-semibold shadow-sm group-hover:bg-blue-700 transition-colors">
+                  <motion.span 
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-3.5 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-semibold shadow-sm group-hover:bg-blue-700 transition-colors"
+                  >
                     Try Free →
-                  </span>
-                </div>
+                  </motion.span>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
             <div className="lg:pl-8">
               <h2 className="text-4xl lg:text-5xl font-display font-medium mb-6 text-gray-900 tracking-tight leading-tight">Impeccable <br/><span className="text-blue-600">Previews</span></h2>
               <p className="text-lg text-gray-600 mb-8 leading-relaxed font-light">
@@ -172,10 +190,16 @@ export default function MarketingPage() {
                 <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
               </Link>
             </div>
-          </div>
+          </motion.div>
 
           {/* Block 2 */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ type: "spring", stiffness: 200, damping: 25, delay: 0.1 }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
+          >
             <div className="order-2 lg:order-1 lg:pr-8">
               <h2 className="text-4xl lg:text-5xl font-display font-medium mb-6 text-gray-900 tracking-tight leading-tight">Real-time <br/><span className="text-cyan-500">Analytics</span></h2>
               <p className="text-lg text-gray-600 mb-8 leading-relaxed font-light">
@@ -186,7 +210,11 @@ export default function MarketingPage() {
                 <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
               </Link>
             </div>
-            <div className="order-1 lg:order-2 bg-white/70 backdrop-blur-3xl border border-white/60 rounded-[2.5rem] p-8 shadow-2xl shadow-blue-900/10 relative w-full h-[420px] flex flex-col justify-end transition-all duration-500 hover:scale-[1.02] hover:shadow-blue-900/20 cursor-pointer group overflow-hidden">
+            <motion.div 
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="order-1 lg:order-2 bg-white/70 backdrop-blur-3xl border border-white/60 rounded-[2.5rem] p-8 shadow-2xl shadow-blue-900/10 relative w-full h-[420px] flex flex-col justify-end cursor-pointer group overflow-hidden"
+            >
               <div className="flex justify-between items-end mb-6 relative z-10">
                 <div className="bg-white/95 backdrop-blur-2xl rounded-2xl p-5 shadow-xl shadow-blue-950/5 border border-blue-50/80 transition-transform duration-300 group-hover:-translate-y-1">
                   <div className="flex items-center gap-2 mb-1">
@@ -206,29 +234,41 @@ export default function MarketingPage() {
               </div>
               <div className="flex-grow flex items-end gap-3.5 relative z-10 border-b border-gray-200/60 pb-2 pt-6">
                 {[40, 65, 48, 85, 70, 92, 100].map((h, i) => (
-                  <div key={i} className="flex-1 flex flex-col items-center gap-2 h-full justify-end group/bar">
+                  <motion.div 
+                    key={i} 
+                    whileHover={{ scaleY: 1.05 }}
+                    className="flex-1 flex flex-col items-center gap-2 h-full justify-end group/bar origin-bottom"
+                  >
                     <span className="opacity-0 group-hover/bar:opacity-100 transition-opacity duration-200 text-[10px] font-bold text-blue-600 -mb-1">{h}k</span>
                     <div 
                       className={`w-full rounded-t-lg transition-all duration-300 ${i === 6 ? 'bg-gradient-to-t from-blue-600 to-cyan-400 shadow-md shadow-blue-500/20' : 'bg-gradient-to-t from-blue-200 to-blue-300/80 group-hover/bar:from-blue-400 group-hover/bar:to-cyan-300'}`} 
                       style={{ height: `${h}%` }}
                     ></div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
         </section>
 
         {/* CTA Section & Footer */}
         <footer className="pt-32 pb-16 relative">
-          <div className="max-w-3xl mx-auto px-6 text-center mb-24 relative z-10 bg-white/40 backdrop-blur-3xl border border-white/60 rounded-[3rem] p-16 shadow-2xl shadow-blue-900/5">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95, y: 30 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ type: "spring", stiffness: 250, damping: 25 }}
+            className="max-w-3xl mx-auto px-6 text-center mb-24 relative z-10 bg-white/40 backdrop-blur-3xl border border-white/60 rounded-[3rem] p-16 shadow-2xl shadow-blue-900/5"
+          >
             <h2 className="text-4xl md:text-5xl font-display font-medium mb-6 text-gray-900 tracking-tight">Ready to reach the AI generation?</h2>
             <p className="text-lg text-gray-600 mb-10 font-light">Join hundreds of forward-thinking brands advertising natively inside LLM chats.</p>
-            <Link href="/register" className="inline-flex px-10 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-full font-semibold text-lg shadow-xl shadow-blue-500/25 hover:shadow-2xl hover:shadow-blue-500/40 hover:-translate-y-1 transition-all duration-300">
-              Get Started for Free
-            </Link>
-          </div>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ type: "spring", stiffness: 400, damping: 25 }} className="inline-block">
+              <Link href="/register" className="inline-flex px-10 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-full font-semibold text-lg shadow-xl shadow-blue-500/25 hover:shadow-2xl hover:shadow-blue-500/40 transition-shadow">
+                Get Started for Free
+              </Link>
+            </motion.div>
+          </motion.div>
         </footer>
       </div>
     </div>
