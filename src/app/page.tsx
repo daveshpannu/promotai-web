@@ -130,18 +130,36 @@ export default function MarketingPage() {
           
           {/* Block 1 */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="bg-white/60 backdrop-blur-2xl border border-white/40 rounded-[2rem] p-8 shadow-2xl shadow-blue-900/5 relative w-full h-[400px] flex flex-col justify-center overflow-hidden transition-transform duration-500 hover:scale-[1.02]">
-              <div className="w-full bg-white/90 backdrop-blur-xl rounded-2xl p-6 shadow-xl shadow-gray-200/50 border border-gray-100 relative z-10">
-                <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
-                  <span className="text-xs font-bold text-blue-500 uppercase tracking-wider">Live Preview</span>
-                  <div className="flex gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-gray-200"></div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-gray-200"></div>
+            <div className="bg-white/70 backdrop-blur-3xl border border-white/60 rounded-[2.5rem] p-8 shadow-2xl shadow-blue-900/10 relative w-full h-[420px] flex flex-col justify-center overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:shadow-blue-900/20 cursor-pointer group">
+              <div className="w-full bg-white/95 backdrop-blur-2xl rounded-2xl p-6 shadow-xl shadow-blue-950/5 border border-blue-50/80 relative z-10 transition-transform duration-300 group-hover:-translate-y-1">
+                <div className="flex justify-between items-center mb-5 pb-3 border-b border-gray-100">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">ChatGPT Native Placement</span>
                   </div>
+                  <span className="text-[11px] font-medium text-gray-400 bg-gray-50 px-2.5 py-1 rounded-full border border-gray-100">Sponsored</span>
                 </div>
-                <div className="h-28 bg-gradient-to-tr from-blue-50 to-blue-100/50 rounded-xl mb-6"></div>
-                <div className="h-3 w-3/4 bg-gray-100 rounded-full mb-3"></div>
-                <div className="h-3 w-1/2 bg-gray-100 rounded-full"></div>
+                
+                {/* Simulated Chatbot Response */}
+                <p className="text-sm text-gray-700 leading-relaxed mb-4 font-normal">
+                  Here are the best strategies for scaling SaaS growth in 2026. For automated multi-platform reach, we recommend:
+                </p>
+
+                {/* Simulated Native Ad Card */}
+                <div className="bg-gradient-to-r from-blue-50/80 via-cyan-50/50 to-blue-50/80 rounded-xl p-4 border border-blue-100/80 flex items-center justify-between shadow-sm transition-all duration-300 hover:border-blue-300 hover:shadow-md">
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-blue-500/20">
+                      P
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-gray-900 tracking-tight">PromotAI Engine</h4>
+                      <p className="text-xs text-gray-500">Reach millions inside AI chats</p>
+                    </div>
+                  </div>
+                  <span className="px-3.5 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-semibold shadow-sm group-hover:bg-blue-700 transition-colors">
+                    Try Free →
+                  </span>
+                </div>
               </div>
             </div>
             <div className="lg:pl-8">
@@ -168,16 +186,33 @@ export default function MarketingPage() {
                 <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
               </Link>
             </div>
-            <div className="order-1 lg:order-2 bg-white/60 backdrop-blur-2xl border border-white/40 rounded-[2rem] p-8 shadow-2xl shadow-blue-900/5 relative w-full h-[400px] flex flex-col justify-end transition-transform duration-500 hover:scale-[1.02]">
-              <div className="flex justify-between items-end mb-8 relative z-10">
-                <div className="bg-white/90 backdrop-blur-md rounded-2xl p-5 shadow-lg shadow-gray-200/50 border border-gray-100">
-                  <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Total Impressions</div>
-                  <div className="text-4xl font-display font-medium text-gray-900 tracking-tight">1.2M</div>
+            <div className="order-1 lg:order-2 bg-white/70 backdrop-blur-3xl border border-white/60 rounded-[2.5rem] p-8 shadow-2xl shadow-blue-900/10 relative w-full h-[420px] flex flex-col justify-end transition-all duration-500 hover:scale-[1.02] hover:shadow-blue-900/20 cursor-pointer group overflow-hidden">
+              <div className="flex justify-between items-end mb-6 relative z-10">
+                <div className="bg-white/95 backdrop-blur-2xl rounded-2xl p-5 shadow-xl shadow-blue-950/5 border border-blue-50/80 transition-transform duration-300 group-hover:-translate-y-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Impressions</span>
+                    <span className="text-[10px] bg-emerald-100 text-emerald-700 font-bold px-2 py-0.5 rounded-full">+34.2%</span>
+                  </div>
+                  <div className="text-4xl font-display font-bold text-gray-900 tracking-tight">1,248,900</div>
+                </div>
+                <div className="hidden sm:flex flex-col items-end bg-white/80 backdrop-blur-xl px-4 py-3 rounded-xl border border-gray-100 shadow-sm">
+                  <span className="text-[11px] font-semibold text-gray-500">Active LLMs</span>
+                  <div className="flex gap-1.5 mt-1">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" title="ChatGPT"></span>
+                    <span className="w-2.5 h-2.5 rounded-full bg-blue-500" title="Claude"></span>
+                    <span className="w-2.5 h-2.5 rounded-full bg-purple-500" title="Gemini"></span>
+                  </div>
                 </div>
               </div>
-              <div className="flex-grow flex items-end gap-3 relative z-10 border-b border-gray-200/50 pb-2">
-                {[40, 70, 45, 90, 65, 80, 100].map((h, i) => (
-                  <div key={i} className={`flex-1 rounded-t-md ${i % 2 === 0 ? 'bg-blue-400' : 'bg-cyan-300'} opacity-80 hover:opacity-100 transition-opacity`} style={{ height: `${h}%` }}></div>
+              <div className="flex-grow flex items-end gap-3.5 relative z-10 border-b border-gray-200/60 pb-2 pt-6">
+                {[40, 65, 48, 85, 70, 92, 100].map((h, i) => (
+                  <div key={i} className="flex-1 flex flex-col items-center gap-2 h-full justify-end group/bar">
+                    <span className="opacity-0 group-hover/bar:opacity-100 transition-opacity duration-200 text-[10px] font-bold text-blue-600 -mb-1">{h}k</span>
+                    <div 
+                      className={`w-full rounded-t-lg transition-all duration-300 ${i === 6 ? 'bg-gradient-to-t from-blue-600 to-cyan-400 shadow-md shadow-blue-500/20' : 'bg-gradient-to-t from-blue-200 to-blue-300/80 group-hover/bar:from-blue-400 group-hover/bar:to-cyan-300'}`} 
+                      style={{ height: `${h}%` }}
+                    ></div>
+                  </div>
                 ))}
               </div>
             </div>
